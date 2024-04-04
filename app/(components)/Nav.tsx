@@ -12,7 +12,7 @@ import SearchBar from "./SearchBar";
 const Nav = () => {
 	return (
 		<nav className="flex justify-between bg-nav p-4">
-			<div className="flex items-center space-x-4">
+			<div className="flex items-center space-x-10">
 				<Link href="/">
 					<FontAwesomeIcon icon={faHouse} className="icon" />
 				</Link>
@@ -26,11 +26,11 @@ const Nav = () => {
 					<FontAwesomeIcon icon={faMagnifyingGlass} className="icon" />
 				</Link>
 			</div>
-			<div className="flex items-center space-x-4">
+			<div>
 				<SearchBar />
-
-				<div>
+				<div className="mt-2 flex justify-between space-x-4">
 					<p className="text-default-text">mikefyke@hotmail.com</p>
+					<p className="text-default-text">Logout</p>
 				</div>
 			</div>
 		</nav>
