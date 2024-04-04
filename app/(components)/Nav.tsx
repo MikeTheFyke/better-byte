@@ -6,7 +6,6 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
-import React from "react";
 import SearchBar from "./SearchBar";
 
 const Nav = () => {
@@ -26,6 +25,7 @@ const Nav = () => {
 					<FontAwesomeIcon icon={faMagnifyingGlass} className="icon" />
 				</Link>
 			</div>
+			<div className="text-default-text">Better Bytes</div>
 			<div>
 				<SearchBar />
 				<div className="mt-2 flex justify-between space-x-4">

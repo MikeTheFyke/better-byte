@@ -5,7 +5,7 @@ const EditCard = () => {
 	return (
 		<FontAwesomeIcon
 			icon={faPencil}
-			className="text-blue-400 hover:cursor-pointer hover:text-blue-200"
+			className="text-blue-400 hover:cursor-pointer hover:text-blue-600  text-4xl p-1"
 		/>
 	);
 };
