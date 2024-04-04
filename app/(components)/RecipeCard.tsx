@@ -7,7 +7,7 @@ import EditCard from "./EditCard";
 
 const RecipeCard = () => {
 	return (
-		<div className="w-[400px] h-[400px] bg-slate-100 hover:bg-slate-300 rounded-xl">
+		<div className="w-[400px] h-[400px] bg-slate-100 hover:bg-slate-300 rounded-xl m-4">
 			<div className="flex justify-end p-1">
 				<DeleteCard />
 				<EditCard />
