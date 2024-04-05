@@ -1,0 +1,19 @@
+import mongoose, { Schema } from "mongoose";
+
+mongoose.connect(process.env.MONGODB_URI);
+mongoose.Promise = global.Promise;
+
+const recipeSchema = new Schema(
+	{
+		title: String,
+		description: String,
+		ingredients: [{ name: String, quantity: String }],
+		image: String,
+	},
+	{
+		timestamps: true,
+	}
+);
+
+const Recipe = mongoose.models.Recipe || mongoose.model("Recipe", recipeSchema);
+export default Recipe;
