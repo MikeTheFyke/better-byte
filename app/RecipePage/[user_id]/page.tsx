@@ -8,7 +8,7 @@ interface PageParams {
 const RecipePage = ({ params }) => {
 	return (
 		<>
-			<div className="w-full bg-blue-300">
+			<div className="w-full mb-10">
 				<RecipeForm />
 			</div>
 			<div className="flex justify-center">

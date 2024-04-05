@@ -28,10 +28,10 @@ const RecipeForm = () => {
 	return (
 		<div className="flex justify-center">
 			<form className="w-[80%]">
-				<div className="flex text-white text-center justify-center text-2xl pt-5">
-					Create your recipe
+				<div className="flex text-white text-center justify-center text-2xl pt-5 mb-4">
+					Create a new recipe
 				</div>
-				<div className="grid grid-cols-2 gap-2">
+				<div className="grid grid-cols-2 gap-2 mb-4">
 					<div>
 						<label className="text-lg">Title</label>
 						<input
@@ -78,7 +78,7 @@ const RecipeForm = () => {
 						<input
 							id="quantity"
 							name="quantity"
-							type="number"
+							type="text"
 							onChange={handleChange}
 							required={true}
 							value={formData.ingredients}
@@ -109,6 +109,17 @@ const RecipeForm = () => {
 							<FontAwesomeIcon icon={faMinus} className="text-2xl" />
 						</div>
 					</div>
+				</div>
+				<div className="flex justify-end">
+					<div className="flex justify-center place-items-center mr-4">
+						No image selected
+					</div>
+					<button
+						type="submit"
+						className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+					>
+						Upload an image
+					</button>
 				</div>
 			</form>
 		</div>
