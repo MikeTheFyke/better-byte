@@ -2,6 +2,7 @@
 import { faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { Dispatch, SetStateAction, useState } from "react";
+import { Ingredient } from "../(models)/Recipe";
 
 interface Props {
 	setOpenDialog: Dispatch<SetStateAction<boolean>>;
@@ -29,7 +30,13 @@ const RecipeDialog = ({ setOpenDialog }: Props) => {
 	};
 
 	const addIngredients = () => {
-		formData.ingredients.push(ingredientData);
+		formData.ingredients.map((ingredient, index) => {
+			if ((ingredient.name = "")) {
+				console.log("Empty name");
+				formData.ingredients.splice(index, 1);
+			}
+		});
+		if (formData.ingredients) formData.ingredients.push(ingredientData);
 		setShowIngredientForm(!showIngredientForm);
 	};
 
@@ -37,6 +44,14 @@ const RecipeDialog = ({ setOpenDialog }: Props) => {
 		if (index > -1) {
 			formData.ingredients.splice(index, 1);
 		}
+		console.log("After remove IngredientsData : ", ingredientData);
+		console.log("After remove : ", formData);
+		setFormData(formData);
+	};
+
+	const clearIngredientForm = () => {
+		setIngredientData({ name: "", quantity: "", unit: "" });
+		setShowIngredientForm(!showIngredientForm);
 	};
 
 	const startingRecipeData = {
@@ -117,41 +132,45 @@ const RecipeDialog = ({ setOpenDialog }: Props) => {
 					</div>
 					{formData.ingredients
 						? formData.ingredients.map((ingredient, index) => {
-								return (
-									<div
-										className="flex flex-row w-full justify-between"
-										key={ingredient.name}
-									>
-										<div className="justify-start">
-											<h6 className="block mb-2 font-sans text-base antialiased font-semibold leading-relaxed tracking-normal text-inherit cursor-pointer">
-												{ingredient.quantity} {ingredient.unit}{" "}
-												{ingredient.name}
-											</h6>
-										</div>
+								if (ingredient.name !== "") {
+									return (
 										<div
-											className="justify-end"
-											onClick={() => removeIngredient(index)}
+											className="flex flex-row w-full justify-between"
+											key={ingredient.name}
 										>
-											<div className="w-[30px] h-[30px] bg-red-400 rounded-full flex justify-center place-items-center border border-white hover:bg-red-600 hover:cursor-pointer">
-												<FontAwesomeIcon icon={faMinus} className="text-xl" />
+											<div className="justify-start">
+												<h6 className="block mb-2 font-sans text-base antialiased font-semibold leading-relaxed tracking-normal text-inherit cursor-pointer">
+													{ingredient.quantity} {ingredient.unit}{" "}
+													{ingredient.name}
+												</h6>
+											</div>
+											<div
+												className="justify-end"
+												onClick={() => removeIngredient(index)}
+											>
+												<div className="w-[30px] h-[30px] bg-red-400 rounded-full flex justify-center place-items-center border border-white hover:bg-red-600 hover:cursor-pointer">
+													<FontAwesomeIcon icon={faMinus} className="text-xl" />
+												</div>
 											</div>
 										</div>
-									</div>
-								);
+									);
+								}
 						  })
 						: null}
 					{/* Sub content */}
-					<div
-						className="relative w-full min-w-[200px]"
-						onClick={() => setShowIngredientForm(!showIngredientForm)}
-					>
-						<h6 className="block -mb-2 font-sans text-base antialiased font-semibold leading-relaxed tracking-normal text-inherit cursor-pointer">
-							+ Add ingredient
-						</h6>
-					</div>
+					{!showIngredientForm ? (
+						<div
+							className="relative w-full min-w-[200px]"
+							onClick={() => setShowIngredientForm(!showIngredientForm)}
+						>
+							<h6 className="block -mb-2 font-sans text-base antialiased font-semibold leading-relaxed tracking-normal text-inherit cursor-pointer">
+								+ Add ingredient
+							</h6>
+						</div>
+					) : null}
 					{showIngredientForm ? (
 						<>
-							<div>
+							<div className="border-t-gray-600">
 								<label className="text-lg">Ingredient</label>
 								<input
 									id="name"
@@ -191,13 +210,19 @@ const RecipeDialog = ({ setOpenDialog }: Props) => {
 										placeholder="Quantity unit type"
 									/>
 								</div>
-								<div
-									className="w-[50px] h-[75px] flex justify-center place-items-center pt-[20px] hover:cursor-pointer"
-									onClick={() => addIngredients()}
-								>
-									<div className="w-[40px] h-[40px] bg-green-600 rounded-full flex justify-center place-items-center border border-white hover:bg-green-800">
+								<div className="h-[75px] flex justify-center place-items-center pt-[20px] hover:cursor-pointer">
+									<div
+										className="w-[40px] h-[40px] bg-green-600 rounded-full flex justify-center place-items-center border border-white hover:bg-green-800"
+										onClick={() => addIngredients()}
+									>
 										<FontAwesomeIcon icon={faPlus} className="text-2xl" />
 									</div>
+									<h6
+										className="ml-4 font-sans text-base antialiased font-semibold  tracking-normal text-inherit cursor-pointer"
+										onClick={() => clearIngredientForm()}
+									>
+										Cancel
+									</h6>
 								</div>
 							</div>
 						</>
@@ -210,7 +235,7 @@ const RecipeDialog = ({ setOpenDialog }: Props) => {
 						className="block w-full select-none rounded-lg bg-gradient-to-tr from-gray-900 to-gray-800 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
 						type="button"
 					>
-						Sign In
+						Create recipe
 					</button>
 				</div>
 			</div>

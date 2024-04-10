@@ -8,10 +8,10 @@ interface PageParams {
 const RecipePage = ({ params }) => {
 	return (
 		<>
-			<div className="w-full mb-10">
+			{/* <div className="w-full mb-10">
 				<RecipeForm />
-			</div>
-			<div className="flex justify-center">
+			</div> */}
+			<div className="flex justify-center mt-10">
 				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-4">
 					<RecipeCard />
 					<RecipeCard />
