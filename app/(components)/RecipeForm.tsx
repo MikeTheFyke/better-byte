@@ -38,7 +38,7 @@ const RecipeForm = () => {
 	const [formData, setFormData] = useState(startingRecipeData);
 	const [ingredientData, setIngredientData] = useState(startingIngredient);
 
-	console.log("FormData : ", formData);
+	// console.log("FormData : ", formData);
 
 	return (
 		<>
