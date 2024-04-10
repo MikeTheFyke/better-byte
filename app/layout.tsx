@@ -5,6 +5,7 @@ import Nav from "./(components)/Nav";
 
 import { config } from "@fortawesome/fontawesome-svg-core";
 import "@fortawesome/fontawesome-svg-core/styles.css";
+import Footer from "./(components)/Footer";
 
 config.autoAddCss = false;
 
@@ -28,6 +29,7 @@ export default function RootLayout({
 					<div className="flex-grow overflow-y-auto bg-page text-default-text">
 						{children}
 					</div>
+					<Footer />
 				</div>
 			</body>
 		</html>
