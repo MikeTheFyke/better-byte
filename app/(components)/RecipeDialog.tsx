@@ -1,4 +1,6 @@
 "use client";
+import { faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { Dispatch, SetStateAction, useState } from "react";
 
 interface Props {
@@ -16,8 +18,25 @@ const RecipeDialog = ({ setOpenDialog }: Props) => {
 		}));
 	};
 
+	const handleIngredientChange = (e: any) => {
+		const value = e.target.value;
+		const name = e.target.name;
+
+		setIngredientData((prevState) => ({
+			...prevState,
+			[name]: value,
+		}));
+	};
+
 	const addIngredients = () => {
 		formData.ingredients.push(ingredientData);
+		setShowIngredientForm(!showIngredientForm);
+	};
+
+	const removeIngredient = (index: number) => {
+		if (index > -1) {
+			formData.ingredients.splice(index, 1);
+		}
 	};
 
 	const startingRecipeData = {
@@ -36,6 +55,7 @@ const RecipeDialog = ({ setOpenDialog }: Props) => {
 
 	const [formData, setFormData] = useState(startingRecipeData);
 	const [ingredientData, setIngredientData] = useState(startingIngredient);
+	const [showIngredientForm, setShowIngredientForm] = useState(false);
 
 	console.log("FormData : ", formData);
 
@@ -44,7 +64,7 @@ const RecipeDialog = ({ setOpenDialog }: Props) => {
 			data-dialog-backdrop="sign-in-dialog"
 			data-dialog-backdrop-close="true"
 			className="fixed inset-0 z-[999] grid h-screen w-screen place-items-center bg-black bg-opacity-60 backdrop-blur-sm transition-opacity duration-300"
-			onClick={() => setOpenDialog(false)}
+			// onClick={() => setOpenDialog(false)}
 		>
 			<div
 				data-dialog="sign-in-dialog"
@@ -95,43 +115,93 @@ const RecipeDialog = ({ setOpenDialog }: Props) => {
 							placeholder="Recipe desciption"
 						/>
 					</div>
-					{/* Sub content */}
-					<div className="-ml-2.5 -mt-3">
-						<div className="inline-flex items-center">
-							<label
-								className="relative flex items-center p-3 rounded-full cursor-pointer"
-								htmlFor="remember"
-							>
-								<input
-									type="checkbox"
-									className="before:content[''] peer relative h-5 w-5 cursor-pointer appearance-none rounded-md border border-blue-gray-200 transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-blue-gray-500 before:opacity-0 before:transition-opacity checked:border-gray-900 checked:bg-gray-900 checked:before:bg-gray-900 hover:before:opacity-10"
-									id="remember"
-								/>
-								<span className="absolute text-white transition-opacity opacity-0 pointer-events-none top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 peer-checked:opacity-100">
-									<svg
-										xmlns="http://www.w3.org/2000/svg"
-										className="h-3.5 w-3.5"
-										viewBox="0 0 20 20"
-										fill="currentColor"
-										stroke="currentColor"
-										strokeWidth="1"
+					{formData.ingredients
+						? formData.ingredients.map((ingredient, index) => {
+								return (
+									<div
+										className="flex flex-row w-full justify-between"
+										key={ingredient.name}
 									>
-										<path
-											fillRule="evenodd"
-											d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-											clipRule="evenodd"
-										></path>
-									</svg>
-								</span>
-							</label>
-							<label
-								className="mt-px font-light text-gray-700 cursor-pointer select-none"
-								htmlFor="remember"
-							>
-								Remember Me
-							</label>
-						</div>
+										<div className="justify-start">
+											<h6 className="block mb-2 font-sans text-base antialiased font-semibold leading-relaxed tracking-normal text-inherit cursor-pointer">
+												{ingredient.quantity} {ingredient.unit}{" "}
+												{ingredient.name}
+											</h6>
+										</div>
+										<div
+											className="justify-end"
+											onClick={() => removeIngredient(index)}
+										>
+											<div className="w-[30px] h-[30px] bg-red-400 rounded-full flex justify-center place-items-center border border-white hover:bg-red-600 hover:cursor-pointer">
+												<FontAwesomeIcon icon={faMinus} className="text-xl" />
+											</div>
+										</div>
+									</div>
+								);
+						  })
+						: null}
+					{/* Sub content */}
+					<div
+						className="relative w-full min-w-[200px]"
+						onClick={() => setShowIngredientForm(!showIngredientForm)}
+					>
+						<h6 className="block -mb-2 font-sans text-base antialiased font-semibold leading-relaxed tracking-normal text-inherit cursor-pointer">
+							+ Add ingredient
+						</h6>
 					</div>
+					{showIngredientForm ? (
+						<>
+							<div>
+								<label className="text-lg">Ingredient</label>
+								<input
+									id="name"
+									name="name"
+									type="text"
+									onChange={handleIngredientChange}
+									required={true}
+									value={ingredientData.name}
+									className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-[300px] p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mr-4"
+									placeholder="Ingredient name"
+								/>
+							</div>
+							<div className="flex flex-row">
+								<div>
+									<label className="text-lg">Quantity</label>
+									<input
+										id="quantity"
+										name="quantity"
+										type="text"
+										onChange={handleIngredientChange}
+										required={true}
+										value={ingredientData.quantity}
+										className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-[100px] p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mr-4"
+										placeholder="Quantity"
+									/>
+								</div>
+								<div>
+									<label className="text-lg">Unit</label>
+									<input
+										id="unit"
+										name="unit"
+										type="text"
+										onChange={handleIngredientChange}
+										required={true}
+										value={ingredientData.unit}
+										className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mr-4"
+										placeholder="Quantity unit type"
+									/>
+								</div>
+								<div
+									className="w-[50px] h-[75px] flex justify-center place-items-center pt-[20px] hover:cursor-pointer"
+									onClick={() => addIngredients()}
+								>
+									<div className="w-[40px] h-[40px] bg-green-600 rounded-full flex justify-center place-items-center border border-white hover:bg-green-800">
+										<FontAwesomeIcon icon={faPlus} className="text-2xl" />
+									</div>
+								</div>
+							</div>
+						</>
+					) : null}
 					{/* End of sub content */}
 				</div>
 				{/* End of main container */}
