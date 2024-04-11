@@ -6,7 +6,6 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
-import { Ingredient } from "../(models)/Recipe";
 
 interface Props {
 	setOpenDialog: Dispatch<SetStateAction<boolean>>;
@@ -16,6 +15,7 @@ const RecipeDialog = ({ setOpenDialog }: Props) => {
 	const startingRecipeData = {
 		title: "",
 		description: "",
+		servings: 1,
 		ingredients: [{ name: "", quantity: "", unit: "" }],
 		steps: [""],
 		image: { name: "", file: "" },
@@ -75,7 +75,7 @@ const RecipeDialog = ({ setOpenDialog }: Props) => {
 					}));
 				}
 			};
-			console.log("Formdata : ", formData);
+			console.log("Image Formdata : ", formData);
 		};
 	};
 
@@ -113,6 +113,11 @@ const RecipeDialog = ({ setOpenDialog }: Props) => {
 		if (formData.ingredients) formData.ingredients.push(ingredientData);
 		setShowIngredientForm(!showIngredientForm);
 		clearIngredientForm();
+		formData.ingredients.map((ingredient, index) => {
+			if (ingredient.name === "") {
+				formData.ingredients.splice(index, 1);
+			}
+		});
 	};
 
 	const removeIngredient = (index: number) => {
@@ -131,6 +136,11 @@ const RecipeDialog = ({ setOpenDialog }: Props) => {
 		if (formData.steps) formData.steps.push(stepData.description);
 		setShowStepForm(!showStepForm);
 		clearStepsForm();
+		formData.steps.map((step, index) => {
+			if (step === "") {
+				formData.steps.splice(index, 1);
+			}
+		});
 	};
 
 	const removeStep = (index: number) => {
@@ -149,13 +159,13 @@ const RecipeDialog = ({ setOpenDialog }: Props) => {
 
 	return (
 		<div
-			data-dialog-backdrop="sign-in-dialog"
+			data-dialog-backdrop="recipe-dialog"
 			data-dialog-backdrop-close="true"
 			className="fixed inset-0 z-[999] grid h-screen w-screen place-items-center bg-black bg-opacity-60 backdrop-blur-sm transition-opacity duration-300"
 			// onClick={() => setOpenDialog(false)}
 		>
 			<div
-				data-dialog="sign-in-dialog"
+				data-dialog="recipe-dialog"
 				className="relative mx-auto flex w-full max-w-[32rem] flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-md h-[80%]"
 			>
 				{/* Main container */}
@@ -173,20 +183,40 @@ const RecipeDialog = ({ setOpenDialog }: Props) => {
 						</h4>
 					</div>
 					{/* Dialog Content */}
-					<h6 className="block font-sans text-base antialiased font-bold leading-relaxed tracking-normal text-inherit">
-						Recipe Name
-					</h6>
-					<div className="relative h-11 w-full min-w-[200px]">
-						<input
-							id="title"
-							name="title"
-							type="text"
-							onChange={handleChange}
-							required={true}
-							value={formData.title}
-							className="w-full h-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-							placeholder="Recipe name"
-						/>
+					<div className="flex flex-row justify-between">
+						<div className="w-[100%] mr-4">
+							<h6 className="block font-sans text-base antialiased font-bold leading-relaxed tracking-normal text-inherit">
+								Recipe Name
+							</h6>
+							<div className="relative h-11 w-full min-w-[200px]">
+								<input
+									id="title"
+									name="title"
+									type="text"
+									onChange={handleChange}
+									required={true}
+									value={formData.title}
+									className="w-full h-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+									placeholder="Recipe name"
+								/>
+							</div>
+						</div>
+						<div>
+							<h6 className="block font-sans text-base antialiased font-bold leading-relaxed tracking-normal text-inherit">
+								# of servings
+							</h6>
+							<div className="relative h-11 w-full min-w-[100px]">
+								<input
+									id="servings"
+									name="servings"
+									type="number"
+									onChange={handleChange}
+									required={true}
+									value={formData.servings}
+									className="w-full h-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+								/>
+							</div>
+						</div>
 					</div>
 					<h6 className="block font-sans text-base antialiased font-bold leading-relaxed tracking-normal text-inherit">
 						Recipe Description
@@ -362,7 +392,7 @@ const RecipeDialog = ({ setOpenDialog }: Props) => {
 											>
 												<div className="justify-start">
 													<h6 className="block mb-2 font-sans text-base antialiased font-semibold leading-relaxed tracking-normal text-inherit cursor-pointer">
-														{index}. {step}
+														{index + 1}. {step}
 													</h6>
 												</div>
 												<div
