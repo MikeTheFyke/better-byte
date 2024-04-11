@@ -13,31 +13,70 @@ interface Props {
 }
 
 const RecipeDialog = ({ setOpenDialog }: Props) => {
-	const onImageSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-		e.preventDefault();
-		if (!file) return;
+	const startingRecipeData = {
+		title: "",
+		description: "",
+		ingredients: [{ name: "", quantity: "", unit: "" }],
+		steps: [""],
+		image: { name: "", file: "" },
+	};
 
-		try {
-			const data = new FormData();
+	const startingIngredient = {
+		name: "",
+		quantity: "",
+		unit: "",
+	};
+
+	const startingStep = { description: "" };
+
+	const startingImage = { name: "", file: "" };
+
+	const [formData, setFormData] = useState(startingRecipeData);
+	const [ingredientData, setIngredientData] = useState(startingIngredient);
+	const [stepData, setStepData] = useState(startingStep);
+	const [imageData, setImageData] = useState(startingImage);
+	const [showIngredientForm, setShowIngredientForm] = useState(false);
+	const [showStepForm, setShowStepForm] = useState(false);
+	const [file, setFile] = useState<File>();
+
+	useEffect(() => {}, [formData]);
+
+	const onImageSubmit = () => {
+		const name = "image";
+		const button = document.getElementById("imageButton");
+		const input = document.getElementById("getImage") as HTMLInputElement;
+
+		button!.onclick = () => {
+			input.click();
+		};
+
+		input?.addEventListener("change", (event) => {
+			event.preventDefault(), saveImage(event);
+		});
+
+		const saveImage = async (event: Event) => {
+			const myFiles = input.files![0];
+			const formData = new FormData();
 			const reader = new FileReader();
-			// console.log("File : ", file);
-			reader.readAsDataURL(file);
-			// data.set("file", file);
-			console.log("reader : ", reader);
-			console.log("Data : ", data);
 
-			// setImageData({
-			// 	name: file.name,
-			// 	file: reader.result,
-			// });
+			reader.readAsDataURL(myFiles);
 
-			setFormData((prevState) => ({
-				...prevState,
-				image: imageData,
-			}));
-		} catch (e: any) {
-			console.error(e);
-		}
+			reader.onload = function (e) {
+				if (reader.result) {
+					const data = reader.result;
+					setImageData({
+						name: input.files![0].name,
+						file: data as string,
+					});
+
+					setFormData((prevState) => ({
+						...prevState,
+						[name]: imageData,
+					}));
+				}
+			};
+			console.log("Formdata : ", formData);
+		};
 	};
 
 	const handleChange = (e: any) => {
@@ -73,6 +112,7 @@ const RecipeDialog = ({ setOpenDialog }: Props) => {
 	const addIngredients = () => {
 		if (formData.ingredients) formData.ingredients.push(ingredientData);
 		setShowIngredientForm(!showIngredientForm);
+		clearIngredientForm();
 	};
 
 	const removeIngredient = (index: number) => {
@@ -90,6 +130,7 @@ const RecipeDialog = ({ setOpenDialog }: Props) => {
 	const addStep = () => {
 		if (formData.steps) formData.steps.push(stepData.description);
 		setShowStepForm(!showStepForm);
+		clearStepsForm();
 	};
 
 	const removeStep = (index: number) => {
@@ -104,36 +145,7 @@ const RecipeDialog = ({ setOpenDialog }: Props) => {
 		setShowStepForm(!showStepForm);
 	};
 
-	const startingRecipeData = {
-		title: "",
-		description: "",
-		ingredients: [{ name: "", quantity: "", unit: "" }],
-		steps: [""],
-		image: { name: "", file: "" },
-	};
-
-	const startingIngredient = {
-		name: "",
-		quantity: "",
-		unit: "",
-	};
-
-	const startingStep = { description: "" };
-
-	const startingImage = { name: "", file: "" };
-
-	const [formData, setFormData] = useState(startingRecipeData);
-	const [ingredientData, setIngredientData] = useState(startingIngredient);
-	const [stepData, setStepData] = useState(startingStep);
-	const [imageData, setImageData] = useState(startingImage);
-	const [showIngredientForm, setShowIngredientForm] = useState(false);
-	const [showStepForm, setShowStepForm] = useState(false);
-	const [file, setFile] = useState<File>();
-
-	useEffect(() => {}, [formData]);
-
-	console.log("FormData : ", formData);
-	console.log("File : ", file);
+	console.log("Formdata : ", formData);
 
 	return (
 		<div
@@ -196,49 +208,47 @@ const RecipeDialog = ({ setOpenDialog }: Props) => {
 							Recipe Image
 						</h6>
 						<form
-							onSubmit={onImageSubmit}
+							// onSubmit={onImageSubmit}
 							encType="multipart/form-data"
 							className="flex flex-row justify-between w-full"
+							id="imageForm"
 						>
-							<div className="flex flex-row w-[80%]">
-								<label
-									htmlFor="getImage"
-									className="text-white bg-gradient-to-tr from-gray-900 to-gray-800 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2 flex justify-center place-items-center mr-2 cursor-pointer"
+							<div className="flex flex-row">
+								<button
+									type="button"
+									value="Upload"
+									id="imageButton"
+									onClick={() => onImageSubmit()}
+									className="h-[40px] text-white bg-gradient-to-tr from-gray-900 to-gray-800 focus:ring-4 focus:outline-none font-medium uppercase rounded-lg text-sm px-4 py-2 flex justify-center place-items-center mr-4"
 								>
-									Select File
-								</label>
+									<FontAwesomeIcon
+										icon={faFileArrowUp}
+										className="w-4 h-4 text-white mr-4 -mt-0.5"
+									/>
+									Upload
+								</button>
 								<input
 									type="file"
 									name="file"
 									id="getImage"
-									onChange={(e) => setFile(e.target.files?.[0])}
+									// onChange={(e) => setFile(e.target.files?.[0])}
 									className="hidden"
+									accept="image/*"
 								/>
-								{file?.name !== "" ? (
+								{imageData?.name !== "" ? (
 									<div className="flex justify-center place-items-center">
-										<h6 className="mr-4 font-sans text-base antialiased font-semibold  tracking-normal text-inherit cursor-pointer">
-											{file?.name}
+										<h6 className="font-sans text-base antialiased font-semibold  tracking-normal text-inherit cursor-pointer">
+											{imageData?.name}
 										</h6>
 									</div>
 								) : (
 									<div className="flex justify-center place-items-center">
-										<h6 className="mr-4 font-sans text-base antialiased font-semibold  tracking-normal text-inherit cursor-pointer">
+										<h6 className="font-sans text-base antialiased font-semibold  tracking-normal text-inherit cursor-pointer">
 											No image selected
 										</h6>
 									</div>
 								)}
 							</div>
-							<button
-								type="submit"
-								value="Upload"
-								className="text-white bg-gradient-to-tr from-gray-900 to-gray-800 focus:ring-4 focus:outline-none font-medium uppercase rounded-lg text-sm px-4 py-2 flex justify-center place-items-center"
-							>
-								<FontAwesomeIcon
-									icon={faFileArrowUp}
-									className="w-4 h-4 text-white mr-4 -mt-0.5"
-								/>
-								Upload
-							</button>
 						</form>
 					</div>
 					<label className="text-lg font-bold">Ingredients</label>
@@ -246,30 +256,25 @@ const RecipeDialog = ({ setOpenDialog }: Props) => {
 						? formData.ingredients.map((ingredient, index) => {
 								if (ingredient.name !== "") {
 									return (
-										<>
+										<div
+											className="flex flex-row w-full justify-between"
+											key={ingredient.name}
+										>
+											<div className="justify-start">
+												<h6 className="block mb-2 font-sans text-base antialiased font-semibold leading-relaxed tracking-normal text-inherit cursor-pointer">
+													{ingredient.quantity} {ingredient.unit}{" "}
+													{ingredient.name}
+												</h6>
+											</div>
 											<div
-												className="flex flex-row w-full justify-between"
-												key={ingredient.name}
+												className="justify-end"
+												onClick={() => removeIngredient(index)}
 											>
-												<div className="justify-start">
-													<h6 className="block mb-2 font-sans text-base antialiased font-semibold leading-relaxed tracking-normal text-inherit cursor-pointer">
-														{ingredient.quantity} {ingredient.unit}{" "}
-														{ingredient.name}
-													</h6>
-												</div>
-												<div
-													className="justify-end"
-													onClick={() => removeIngredient(index)}
-												>
-													<div className="w-[40px] h-[40px] bg-red-400 rounded-full flex justify-center place-items-center border border-white hover:bg-red-600 hover:cursor-pointer">
-														<FontAwesomeIcon
-															icon={faMinus}
-															className="text-xl"
-														/>
-													</div>
+												<div className="w-[40px] h-[40px] bg-red-400 rounded-full flex justify-center place-items-center border border-white hover:bg-red-600 hover:cursor-pointer">
+													<FontAwesomeIcon icon={faMinus} className="text-xl" />
 												</div>
 											</div>
-										</>
+										</div>
 									);
 								}
 						  })
@@ -280,7 +285,7 @@ const RecipeDialog = ({ setOpenDialog }: Props) => {
 							className="relative w-full min-w-[200px]"
 							onClick={() => setShowIngredientForm(!showIngredientForm)}
 						>
-							<h6 className="block -mb-2 font-sans text-base antialiased font-semibold leading-relaxed tracking-normal text-inherit cursor-pointer">
+							<h6 className="block -mb-2 font-sans text-base antialiased font-bold leading-relaxed tracking-normal text-inherit cursor-pointer">
 								+ Add ingredient
 							</h6>
 						</div>
@@ -383,7 +388,7 @@ const RecipeDialog = ({ setOpenDialog }: Props) => {
 							className="relative w-full min-w-[200px]"
 							onClick={() => setShowStepForm(!showStepForm)}
 						>
-							<h6 className="block -mb-2 font-sans text-base antialiased font-semibold leading-relaxed tracking-normal text-inherit cursor-pointer">
+							<h6 className="block -mb-2 font-sans text-base antialiased font-bold leading-relaxed tracking-normal text-inherit cursor-pointer">
 								+ Add recipe step
 							</h6>
 						</div>
