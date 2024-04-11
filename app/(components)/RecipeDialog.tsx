@@ -13,6 +13,33 @@ interface Props {
 }
 
 const RecipeDialog = ({ setOpenDialog }: Props) => {
+	const onImageSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+		e.preventDefault();
+		if (!file) return;
+
+		try {
+			const data = new FormData();
+			const reader = new FileReader();
+			// console.log("File : ", file);
+			reader.readAsDataURL(file);
+			// data.set("file", file);
+			console.log("reader : ", reader);
+			console.log("Data : ", data);
+
+			// setImageData({
+			// 	name: file.name,
+			// 	file: reader.result,
+			// });
+
+			setFormData((prevState) => ({
+				...prevState,
+				image: imageData,
+			}));
+		} catch (e: any) {
+			console.error(e);
+		}
+	};
+
 	const handleChange = (e: any) => {
 		const value = e.target.value;
 		const name = e.target.name;
@@ -98,12 +125,15 @@ const RecipeDialog = ({ setOpenDialog }: Props) => {
 	const [formData, setFormData] = useState(startingRecipeData);
 	const [ingredientData, setIngredientData] = useState(startingIngredient);
 	const [stepData, setStepData] = useState(startingStep);
+	const [imageData, setImageData] = useState(startingImage);
 	const [showIngredientForm, setShowIngredientForm] = useState(false);
 	const [showStepForm, setShowStepForm] = useState(false);
+	const [file, setFile] = useState<File>();
 
 	useEffect(() => {}, [formData]);
 
 	console.log("FormData : ", formData);
+	console.log("File : ", file);
 
 	return (
 		<div
@@ -114,7 +144,7 @@ const RecipeDialog = ({ setOpenDialog }: Props) => {
 		>
 			<div
 				data-dialog="sign-in-dialog"
-				className="relative mx-auto flex w-full max-w-[32rem] flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-md"
+				className="relative mx-auto flex w-full max-w-[32rem] flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-md h-[80%]"
 			>
 				{/* Main container */}
 				<div className="flex flex-col gap-4 p-6">
@@ -131,10 +161,10 @@ const RecipeDialog = ({ setOpenDialog }: Props) => {
 						</h4>
 					</div>
 					{/* Dialog Content */}
-					<h6 className="block -mb-2 font-sans text-base antialiased font-semibold leading-relaxed tracking-normal text-inherit">
+					<h6 className="block font-sans text-base antialiased font-bold leading-relaxed tracking-normal text-inherit">
 						Recipe Name
 					</h6>
-					<div className="relative h-11 w-full min-w-[200px] mb-4">
+					<div className="relative h-11 w-full min-w-[200px]">
 						<input
 							id="title"
 							name="title"
@@ -146,7 +176,7 @@ const RecipeDialog = ({ setOpenDialog }: Props) => {
 							placeholder="Recipe name"
 						/>
 					</div>
-					<h6 className="block -mb-2 font-sans text-base antialiased font-semibold leading-relaxed tracking-normal text-inherit">
+					<h6 className="block font-sans text-base antialiased font-bold leading-relaxed tracking-normal text-inherit">
 						Recipe Description
 					</h6>
 					<div className="relative h-11 w-full min-w-[200px]">
@@ -161,7 +191,57 @@ const RecipeDialog = ({ setOpenDialog }: Props) => {
 							placeholder="Recipe desciption"
 						/>
 					</div>
-					<label className="text-lg">Ingredients</label>
+					<div className="mt-2">
+						<h6 className="block font-sans text-base antialiased font-bold leading-relaxed tracking-normal text-inherit mb-4">
+							Recipe Image
+						</h6>
+						<form
+							onSubmit={onImageSubmit}
+							encType="multipart/form-data"
+							className="flex flex-row justify-between w-full"
+						>
+							<div className="flex flex-row w-[80%]">
+								<label
+									htmlFor="getImage"
+									className="text-white bg-gradient-to-tr from-gray-900 to-gray-800 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2 flex justify-center place-items-center mr-2 cursor-pointer"
+								>
+									Select File
+								</label>
+								<input
+									type="file"
+									name="file"
+									id="getImage"
+									onChange={(e) => setFile(e.target.files?.[0])}
+									className="hidden"
+								/>
+								{file?.name !== "" ? (
+									<div className="flex justify-center place-items-center">
+										<h6 className="mr-4 font-sans text-base antialiased font-semibold  tracking-normal text-inherit cursor-pointer">
+											{file?.name}
+										</h6>
+									</div>
+								) : (
+									<div className="flex justify-center place-items-center">
+										<h6 className="mr-4 font-sans text-base antialiased font-semibold  tracking-normal text-inherit cursor-pointer">
+											No image selected
+										</h6>
+									</div>
+								)}
+							</div>
+							<button
+								type="submit"
+								value="Upload"
+								className="text-white bg-gradient-to-tr from-gray-900 to-gray-800 focus:ring-4 focus:outline-none font-medium uppercase rounded-lg text-sm px-4 py-2 flex justify-center place-items-center"
+							>
+								<FontAwesomeIcon
+									icon={faFileArrowUp}
+									className="w-4 h-4 text-white mr-4 -mt-0.5"
+								/>
+								Upload
+							</button>
+						</form>
+					</div>
+					<label className="text-lg font-bold">Ingredients</label>
 					{formData.ingredients
 						? formData.ingredients.map((ingredient, index) => {
 								if (ingredient.name !== "") {
@@ -340,38 +420,13 @@ const RecipeDialog = ({ setOpenDialog }: Props) => {
 								</div>
 							</div>
 						) : null}
-						<div className="flex flex-row justify-end w-full">
-							{formData.image ? (
-								<div className="flex justify-center place-items-center">
-									<h6 className="mr-4 font-sans text-base antialiased font-semibold  tracking-normal text-inherit cursor-pointer">
-										formData.image.name
-									</h6>
-								</div>
-							) : (
-								<div className="flex justify-center place-items-center">
-									<h6 className="mr-4 font-sans text-base antialiased font-semibold  tracking-normal text-inherit cursor-pointer">
-										No image selected
-									</h6>
-								</div>
-							)}
-							<button
-								type="submit"
-								className="text-white bg-gray-300 hover:bg-gray-400 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2 flex justify-end"
-							>
-								<FontAwesomeIcon
-									icon={faFileArrowUp}
-									className="w-4 h-4 text-gray-500 dark:text-gray-400 mr-4"
-								/>
-								Upload
-							</button>
-						</div>
 					</div>
 					{/* End of sub content */}
 				</div>
 				{/* End of main container */}
-				<div className="p-6 pt-0">
+				<div className="p-6 pt-0 absolute bottom-0 w-full">
 					<button
-						className="block w-full select-none rounded-lg bg-gradient-to-tr from-gray-900 to-gray-800 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+						className="block w-full select-none rounded-lg bg-gradient-to-tr from-gray-900 to-gray-800 py-3 px-6 text-center font-sans text-xl font-bold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
 						type="button"
 					>
 						Create recipe

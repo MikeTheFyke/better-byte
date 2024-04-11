@@ -7,8 +7,6 @@ import RecipeDialog from "./RecipeDialog";
 const Footer = () => {
 	const [openDialog, setOpenDialog] = useState(false);
 
-	console.log("Dialog : ", openDialog);
-
 	return (
 		<>
 			{openDialog ? <RecipeDialog setOpenDialog={setOpenDialog} /> : null}
