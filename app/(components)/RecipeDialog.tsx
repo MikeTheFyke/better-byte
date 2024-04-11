@@ -1,5 +1,9 @@
 "use client";
-import { faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
+import {
+	faFileArrowUp,
+	faMinus,
+	faPlus,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { Ingredient } from "../(models)/Recipe";
@@ -78,7 +82,7 @@ const RecipeDialog = ({ setOpenDialog }: Props) => {
 		description: "",
 		ingredients: [{ name: "", quantity: "", unit: "" }],
 		steps: [""],
-		image: "",
+		image: { name: "", file: "" },
 	};
 
 	const startingIngredient = {
@@ -88,6 +92,8 @@ const RecipeDialog = ({ setOpenDialog }: Props) => {
 	};
 
 	const startingStep = { description: "" };
+
+	const startingImage = { name: "", file: "" };
 
 	const [formData, setFormData] = useState(startingRecipeData);
 	const [ingredientData, setIngredientData] = useState(startingIngredient);
@@ -334,8 +340,32 @@ const RecipeDialog = ({ setOpenDialog }: Props) => {
 								</div>
 							</div>
 						) : null}
+						<div className="flex flex-row justify-end w-full">
+							{formData.image ? (
+								<div className="flex justify-center place-items-center">
+									<h6 className="mr-4 font-sans text-base antialiased font-semibold  tracking-normal text-inherit cursor-pointer">
+										formData.image.name
+									</h6>
+								</div>
+							) : (
+								<div className="flex justify-center place-items-center">
+									<h6 className="mr-4 font-sans text-base antialiased font-semibold  tracking-normal text-inherit cursor-pointer">
+										No image selected
+									</h6>
+								</div>
+							)}
+							<button
+								type="submit"
+								className="text-white bg-gray-300 hover:bg-gray-400 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2 flex justify-end"
+							>
+								<FontAwesomeIcon
+									icon={faFileArrowUp}
+									className="w-4 h-4 text-gray-500 dark:text-gray-400 mr-4"
+								/>
+								Upload
+							</button>
+						</div>
 					</div>
-
 					{/* End of sub content */}
 				</div>
 				{/* End of main container */}

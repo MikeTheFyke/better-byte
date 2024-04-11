@@ -9,7 +9,7 @@ const recipeSchema = new Schema(
 		description: String,
 		ingredients: [{ name: String, quantity: String, unit: String }],
 		step: [{ number: String, description: String }],
-		image: String,
+		image: { name: String, file: String },
 	},
 	{
 		timestamps: true,
