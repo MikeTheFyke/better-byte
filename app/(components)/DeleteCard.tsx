@@ -5,7 +5,7 @@ const DeleteCard = () => {
 	return (
 		<FontAwesomeIcon
 			icon={faTrashCan}
-			className="text-red-400 hover:cursor-pointer hover:text-red-600 text-4xl p-1"
+			className="text-red-400 hover:cursor-pointer hover:text-red-600 text-2xl p-1"
 		/>
 	);
 };
