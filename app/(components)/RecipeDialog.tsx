@@ -155,6 +155,10 @@ const RecipeDialog = ({ setOpenDialog }: Props) => {
 		setShowStepForm(!showStepForm);
 	};
 
+	const createRecipe = () => {
+		console.log("Submitted");
+	};
+
 	console.log("Formdata : ", formData);
 
 	return (
@@ -291,7 +295,7 @@ const RecipeDialog = ({ setOpenDialog }: Props) => {
 											key={ingredient.name}
 										>
 											<div className="justify-start">
-												<h6 className="block mb-2 font-sans text-base antialiased font-semibold leading-relaxed tracking-normal text-inherit cursor-pointer">
+												<h6 className="block mb-2 font-sans text-base antialiased font-semibold leading-relaxed tracking-normal text-inherit">
 													{ingredient.quantity} {ingredient.unit}{" "}
 													{ingredient.name}
 												</h6>
@@ -300,9 +304,9 @@ const RecipeDialog = ({ setOpenDialog }: Props) => {
 												className="justify-end"
 												onClick={() => removeIngredient(index)}
 											>
-												<div className="w-[40px] h-[40px] bg-red-400 rounded-full flex justify-center place-items-center border border-white hover:bg-red-600 hover:cursor-pointer">
-													<FontAwesomeIcon icon={faMinus} className="text-xl" />
-												</div>
+												<h6 className="block ml-4 font-sans text-base antialiased font-semibold  tracking-normal text-inherit cursor-pointer">
+													Remove
+												</h6>
 											</div>
 										</div>
 									);
@@ -391,20 +395,17 @@ const RecipeDialog = ({ setOpenDialog }: Props) => {
 												key={index}
 											>
 												<div className="justify-start">
-													<h6 className="block mb-2 font-sans text-base antialiased font-semibold leading-relaxed tracking-normal text-inherit cursor-pointer">
+													<h6 className="block mb-2 font-sans text-base antialiased font-semibold leading-relaxed tracking-normal text-inherit">
 														{index + 1}. {step}
 													</h6>
 												</div>
 												<div
-													className="flex justify-center place-items-center"
+													className="justify-end"
 													onClick={() => removeStep(index)}
 												>
-													<div className="w-[40px] h-[40px] bg-red-400 rounded-full flex justify-center place-items-center border border-white hover:bg-red-600 hover:cursor-pointer">
-														<FontAwesomeIcon
-															icon={faMinus}
-															className="text-xl"
-														/>
-													</div>
+													<h6 className="block ml-4 font-sans text-base antialiased font-semibold  tracking-normal text-inherit cursor-pointer">
+														Remove
+													</h6>
 												</div>
 											</div>
 										);
@@ -463,6 +464,7 @@ const RecipeDialog = ({ setOpenDialog }: Props) => {
 					<button
 						className="block w-full select-none rounded-lg bg-gradient-to-tr from-gray-900 to-gray-800 py-3 px-6 text-center font-sans text-xl font-bold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
 						type="button"
+						onClick={() => createRecipe()}
 					>
 						Create recipe
 					</button>
