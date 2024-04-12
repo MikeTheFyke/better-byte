@@ -9,6 +9,6 @@ export type Recipe = {
 	description: string;
 	servings: Number;
 	ingredients: Array<Ingredient>;
-	step: [];
+	steps: [];
 	image: { name: string; file: string };
 };

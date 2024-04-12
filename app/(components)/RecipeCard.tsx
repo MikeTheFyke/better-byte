@@ -15,13 +15,16 @@ interface Props {
 
 const RecipeCard = ({ recipe }: Props) => {
 	return (
-		<div className="w-[400px] h-[400px] bg-slate-100 hover:bg-slate-300 rounded-xl">
+		<div
+			className="w-[400px] h-[400px] bg-slate-100 hover:bg-slate-300 rounded-xl"
+			key={recipe._id}
+		>
 			<div className="flex justify-between p-1">
 				<DeleteCard id={recipe._id} />
 				<div className="flex text-black place-items-center justify-center text-2xl">
 					{recipe.title}
 				</div>
-				<EditCard />
+				<EditCard recipe={recipe} />
 			</div>
 			<div
 				className="h-[260px] grid grid-cols-2 gap-4 place-content-between"

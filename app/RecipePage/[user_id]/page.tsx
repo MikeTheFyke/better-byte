@@ -17,7 +17,7 @@ interface PageParams {
 	user_id: string;
 }
 
-const RecipePage = async ({ params }) => {
+const RecipePage = async ({ params }: any) => {
 	const { recipes } = await getRecipes();
 
 	return (
