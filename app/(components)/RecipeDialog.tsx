@@ -38,7 +38,7 @@ const RecipeDialog = ({ setOpenDialog }: Props) => {
 	const [showStepForm, setShowStepForm] = useState(false);
 	const [file, setFile] = useState<File>();
 
-	useEffect(() => {}, [formData]);
+	useEffect(() => {}, [formData, imageData]);
 
 	const onImageSubmit = () => {
 		const name = "image";
@@ -55,7 +55,6 @@ const RecipeDialog = ({ setOpenDialog }: Props) => {
 
 		const saveImage = async (event: Event) => {
 			const myFiles = input.files![0];
-			const formData = new FormData();
 			const reader = new FileReader();
 
 			reader.readAsDataURL(myFiles);
@@ -168,6 +167,8 @@ const RecipeDialog = ({ setOpenDialog }: Props) => {
 		router.refresh();
 		setOpenDialog(false);
 	};
+
+	console.log("Formdata : ", formData);
 
 	return (
 		<div

@@ -14,11 +14,10 @@ interface Props {
 }
 
 const RecipeCard = ({ recipe }: Props) => {
-	console.log("Recipes incoming : ", recipe);
 	return (
 		<div className="w-[400px] h-[400px] bg-slate-100 hover:bg-slate-300 rounded-xl">
 			<div className="flex justify-between p-1">
-				<DeleteCard />
+				<DeleteCard id={recipe._id} />
 				<div className="flex text-black place-items-center justify-center text-2xl">
 					{recipe.title}
 				</div>
