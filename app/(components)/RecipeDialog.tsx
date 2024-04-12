@@ -5,6 +5,7 @@ import {
 	faPlus,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useRouter } from "next/navigation";
 import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 
 interface Props {
@@ -12,6 +13,8 @@ interface Props {
 }
 
 const RecipeDialog = ({ setOpenDialog }: Props) => {
+	const router = useRouter();
+
 	const startingRecipeData = {
 		title: "",
 		description: "",
@@ -66,7 +69,7 @@ const RecipeDialog = ({ setOpenDialog }: Props) => {
 					const data = reader.result;
 					setImageData({
 						name: input.files![0].name,
-						file: data as string,
+						file: data.toString() as string,
 					});
 
 					setFormData((prevState) => ({
@@ -155,11 +158,21 @@ const RecipeDialog = ({ setOpenDialog }: Props) => {
 		setShowStepForm(!showStepForm);
 	};
 
-	const createRecipe = () => {
-		console.log("Submitted");
-	};
+	const createRecipe = async (e: any) => {
+		e.preventDefault();
 
-	console.log("Formdata : ", formData);
+		const res = await fetch("/api/Recipes", {
+			method: "POST",
+			body: JSON.stringify({ formData }),
+			"content-type": "application/json",
+		});
+		if (!res.ok) {
+			throw new Error("Failed to create Recipe.");
+		}
+
+		router.refresh();
+		setOpenDialog(false);
+	};
 
 	return (
 		<div
@@ -242,7 +255,6 @@ const RecipeDialog = ({ setOpenDialog }: Props) => {
 							Recipe Image
 						</h6>
 						<form
-							// onSubmit={onImageSubmit}
 							encType="multipart/form-data"
 							className="flex flex-row justify-between w-full"
 							id="imageForm"
@@ -265,7 +277,6 @@ const RecipeDialog = ({ setOpenDialog }: Props) => {
 									type="file"
 									name="file"
 									id="getImage"
-									// onChange={(e) => setFile(e.target.files?.[0])}
 									className="hidden"
 									accept="image/*"
 								/>
@@ -464,7 +475,7 @@ const RecipeDialog = ({ setOpenDialog }: Props) => {
 					<button
 						className="block w-full select-none rounded-lg bg-gradient-to-tr from-gray-900 to-gray-800 py-3 px-6 text-center font-sans text-xl font-bold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
 						type="button"
-						onClick={() => createRecipe()}
+						onClick={(e) => createRecipe(e)}
 					>
 						Create recipe
 					</button>
