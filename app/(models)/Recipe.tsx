@@ -7,7 +7,8 @@ export type Ingredient = {
 export type Recipe = {
 	title: string;
 	description: string;
+	servings: Number;
 	ingredients: Array<Ingredient>;
 	step: [];
-	image: string;
+	image: { name: string; file: string };
 };

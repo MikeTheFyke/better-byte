@@ -1,9 +1,5 @@
 "use client";
-import {
-	faFileArrowUp,
-	faMinus,
-	faPlus,
-} from "@fortawesome/free-solid-svg-icons";
+import { faFileArrowUp, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/navigation";
 import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
@@ -78,7 +74,6 @@ const RecipeDialog = ({ setOpenDialog }: Props) => {
 					}));
 				}
 			};
-			console.log("Image Formdata : ", formData);
 		};
 	};
 

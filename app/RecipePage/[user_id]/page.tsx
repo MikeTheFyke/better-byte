@@ -1,29 +1,38 @@
 import RecipeCard from "@/app/(components)/RecipeCard";
-import RecipeForm from "@/app/(components)/RecipeForm";
+import { Recipe } from "@/app/(models)/Recipe";
+
+const getRecipes = async () => {
+	try {
+		const res = await fetch("http://localhost:3000/api/Recipes", {
+			cache: "no-store",
+		});
+
+		return res.json();
+	} catch (error) {
+		console.log("Failed to get recipes : ", error);
+	}
+};
 
 interface PageParams {
 	user_id: string;
 }
 
-const RecipePage = ({ params }) => {
+const RecipePage = async ({ params }) => {
+	const { recipes } = await getRecipes();
+
 	return (
-		<>
-			{/* <div className="w-full mb-10">
-				<RecipeForm />
-			</div> */}
-			<div className="flex justify-center mt-10">
-				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-4">
-					<RecipeCard />
-					<RecipeCard />
-					<RecipeCard />
-					<RecipeCard />
-					<RecipeCard />
-				</div>
+		<div className="flex justify-center mt-10">
+			<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-4">
+				{recipes.map((recipe: Recipe) => {
+					return (
+						<>
+							<RecipeCard recipe={recipe} />
+						</>
+					);
+				})}
 			</div>
-		</>
+		</div>
 	);
 };
 
 export default RecipePage;
-
-1670 - 3;

@@ -1,3 +1,4 @@
+import { Recipe } from "../(models)/Recipe";
 import AddLoblaws from "./AddLoblaws";
 import AddMetro from "./AddMetro";
 import AddNoFrills from "./AddNoFrills";
@@ -5,7 +6,12 @@ import AddWalmart from "./AddWalmart";
 import DeleteCard from "./DeleteCard";
 import EditCard from "./EditCard";
 
-const RecipeCard = () => {
+interface Props {
+	recipe: Recipe;
+}
+
+const RecipeCard = ({ recipe }: Props) => {
+	console.log("Recipes incoming : ", recipe);
 	return (
 		<div className="w-[400px] h-[400px] bg-slate-100 hover:bg-slate-300 rounded-xl">
 			<div className="flex justify-end p-1">
@@ -19,7 +25,7 @@ const RecipeCard = () => {
 				<AddNoFrills />
 			</div>
 			<div className="flex text-black text-center justify-center text-2xl pt-5">
-				Recipe name
+				{recipe.title}
 			</div>
 		</div>
 	);
