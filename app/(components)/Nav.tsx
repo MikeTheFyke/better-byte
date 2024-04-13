@@ -1,8 +1,8 @@
 import {
+	faBook,
 	faClipboard,
 	faHouse,
 	faMagnifyingGlass,
-	faScroll,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
@@ -16,7 +16,7 @@ const Nav = () => {
 					<FontAwesomeIcon icon={faHouse} className="icon" />
 				</Link>
 				<Link href="/RecipePage/new">
-					<FontAwesomeIcon icon={faScroll} className="icon" />
+					<FontAwesomeIcon icon={faBook} className="icon" />
 				</Link>
 				<Link href="/GroceryListPage">
 					<FontAwesomeIcon icon={faClipboard} className="icon" />
