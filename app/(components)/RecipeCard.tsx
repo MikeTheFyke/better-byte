@@ -20,7 +20,7 @@ const RecipeCard = ({ recipe }: Props) => {
 			key={recipe._id}
 		>
 			<div className="flex justify-between p-1">
-				<DeleteCard id={recipe._id} />
+				<DeleteCard id={recipe._id} recipeName={recipe.title} />
 				<div className="flex text-black place-items-center justify-center text-2xl">
 					{recipe.title}
 				</div>
