@@ -15,7 +15,6 @@ export async function GET(req, { params }) {
 }
 
 // Update Recipe
-
 export async function PUT(req, { params }) {
 	try {
 		const { id } = params;
