@@ -31,43 +31,37 @@ const Nav = async () => {
 			</div>
 			<div className="text-default-text">Better Bytes</div>
 			<div>
-				{/* <SearchBar />
-				<div className="mt-2 flex justify-between space-x-4">
-					<p className="text-default-text">mikefyke@hotmail.com</p>
-					<p className="text-default-text">Logout</p>
-				</div> */}
-				<div className="mt-2 flex justify-between space-x-4">
-					{session ? (
-						<Link
-							href="/api/auth/signout?callbackUrl=/"
-							style={{ display: "contents" }}
-						>
+				{session ? (
+					<>
+						<SearchBar />
+						<div className="mt-4 mr-2 flex justify-between space-x-4">
+							<p className="text-default-text">mikefyke@hotmail.com</p>
+							<Link
+								href="/api/auth/signout?callbackUrl=/"
+								style={{ display: "contents" }}
+							>
+								<p className="text-default-text">Logout</p>
+							</Link>
+						</div>
+					</>
+				) : (
+					<div className="mt-2 flex justify-between space-x-4">
+						<Link href="/api/auth/signin" style={{ display: "contents" }}>
 							<button
 								type="button"
 								className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
 							>
-								Logout
+								Login
 							</button>
 						</Link>
-					) : (
-						<>
-							<Link href="/api/auth/signin" style={{ display: "contents" }}>
-								<button
-									type="button"
-									className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-								>
-									Login
-								</button>
-							</Link>
-							<button
-								type="submit"
-								className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-							>
-								Register
-							</button>
-						</>
-					)}
-				</div>
+						<button
+							type="submit"
+							className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+						>
+							Register
+						</button>
+					</div>
+				)}
 			</div>
 		</nav>
 	);
