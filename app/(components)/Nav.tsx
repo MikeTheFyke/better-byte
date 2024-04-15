@@ -7,12 +7,12 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import SearchBar from "./SearchBar";
-import { getServerSession } from "next-auth";
-import { options } from "../api/auth/[...nextauth]/options";
 
-const Nav = async () => {
-	const session = await getServerSession(options);
+interface NavProps {
+	session: any | null;
+}
 
+const Nav = async ({ session }: NavProps) => {
 	return (
 		<nav className="flex justify-between bg-nav p-4">
 			<div className="flex items-center space-x-10">

@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-async-client-component */
 "use client";
 import { faBook } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -6,7 +7,6 @@ import RecipeDialog from "./RecipeDialog";
 
 const Footer = () => {
 	const [openDialog, setOpenDialog] = useState(false);
-
 	return (
 		<>
 			{openDialog ? <RecipeDialog setOpenDialog={setOpenDialog} /> : null}
@@ -15,7 +15,7 @@ const Footer = () => {
 					className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center"
 					onClick={() => setOpenDialog(!openDialog)}
 				>
-					<FontAwesomeIcon icon={faBook} className="icon mr-4" />
+					<FontAwesomeIcon icon={faBook} className="icon" />
 					<span>Create new Recipe</span>
 				</button>
 			</nav>
