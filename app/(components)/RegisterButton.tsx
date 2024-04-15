@@ -5,8 +5,6 @@ import RegisterDialog from "./RegisterDialog";
 export const RegisterButton = () => {
 	const [registerDialogOpen, setRegisterDialogOpen] = useState(false);
 
-	console.log("Is register open? : ", registerDialogOpen);
-
 	return (
 		<>
 			{registerDialogOpen ? (

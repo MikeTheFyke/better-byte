@@ -1,5 +1,6 @@
 import { useRouter } from "next/navigation";
 import React, { Dispatch, SetStateAction } from "react";
+import { RegisterForm } from "./RegisterForm";
 
 interface Props {
 	registerDialogOpen: boolean;
@@ -12,27 +13,15 @@ const RegisterDialog = ({
 }: Props) => {
 	const router = useRouter();
 
-	// const deleteRecipe = async () => {
-	// 	const res = await fetch(`http://localhost:3000/api/Recipes/${recipeId}`, {
-	// 		method: "DELETE",
-	// 	});
-	// 	if (res.ok) {
-	// 		setOpenDeleteDialog(false);
-	// 		router.refresh();
-	// 	} else {
-	// 		throw new Error("Failed to update Recipe.");
-	// 	}
-	// };
-
 	return (
 		<div
 			data-dialog-backdrop="register-dialog"
 			data-dialog-backdrop-close="true"
-			className="fixed inset-0 z-[999] grid h-screen w-screen place-items-center bg-black bg-opacity-60 backdrop-blur-sm transition-opacity duration-300"
+			className="fixed top-0 left-o -inset-4 z-[999] grid h-screen w-screen place-items-center bg-black bg-opacity-60 backdrop-blur-sm transition-opacity duration-300"
 		>
 			<div
 				data-dialog="register-dialog"
-				className="relative mx-auto flex w-full max-w-[32rem] flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-md h-[20%]"
+				className="relative mx-auto flex w-full max-w-[32rem] flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-md h-[558px]"
 			>
 				{/* Main container */}
 				<div className="flex flex-col gap-4 p-6">
@@ -57,22 +46,10 @@ const RegisterDialog = ({
 					</div>
 				</div>
 				{/* End of main container */}
-				<div className="p-6 pt-0 absolute bottom-0 w-full flex flex-row justify-between">
-					<button
-						className="block select-none rounded-lg bg-gradient-to-tr from-gray-900 to-gray-800 py-3 px-6 text-center font-sans text-xl font-bold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-						type="button"
-						onClick={() => setRegisterDialogOpen(false)}
-					>
-						Cancel
-					</button>
-					<button
-						className="block select-none rounded-lg bg-gradient-to-tr from-gray-900 to-gray-800 py-3 px-6 text-center font-sans text-xl font-bold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-						type="button"
-						// onClick={() => deleteRecipe()}
-					>
-						Register
-					</button>
-				</div>
+				<RegisterForm
+					registerDialogOpen={registerDialogOpen}
+					setRegisterDialogOpen={setRegisterDialogOpen}
+				/>
 			</div>
 		</div>
 	);
