@@ -19,15 +19,19 @@ const Nav = async ({ session }: NavProps) => {
 				<Link href="/">
 					<FontAwesomeIcon icon={faHouse} className="icon" />
 				</Link>
-				<Link href="/RecipePage">
-					<FontAwesomeIcon icon={faBook} className="icon" />
-				</Link>
-				<Link href="/GroceryListPage">
-					<FontAwesomeIcon icon={faClipboard} className="icon" />
-				</Link>
-				<Link href="/SearchPage">
-					<FontAwesomeIcon icon={faMagnifyingGlass} className="icon" />
-				</Link>
+				{session ? (
+					<>
+						<Link href="/RecipePage">
+							<FontAwesomeIcon icon={faBook} className="icon" />
+						</Link>
+						<Link href="/GroceryListPage/new">
+							<FontAwesomeIcon icon={faClipboard} className="icon" />
+						</Link>
+						<Link href="/SearchPage">
+							<FontAwesomeIcon icon={faMagnifyingGlass} className="icon" />
+						</Link>
+					</>
+				) : null}
 			</div>
 			<div className="text-default-text">Better Bytes</div>
 			<div>
