@@ -39,6 +39,7 @@ export const RegisterForm = ({
 		} else {
 			router.refresh();
 			router.push("/");
+			setRegisterDialogOpen(false);
 		}
 	};
 

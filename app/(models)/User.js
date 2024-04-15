@@ -5,7 +5,7 @@ mongoose.Promise = global.Promise;
 
 const userSchema = new Schema(
 	{
-		name: String,
+		username: String,
 		email: String,
 		password: String,
 	},
@@ -14,6 +14,6 @@ const userSchema = new Schema(
 	}
 );
 
-const User = moongoose.models.User || mongoose.model("User", userSchema);
+const User = mongoose.models.User || mongoose.model("User", userSchema);
 
 export default User;

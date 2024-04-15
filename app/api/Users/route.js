@@ -6,11 +6,12 @@ export async function POST(req) {
 	try {
 		const body = await req.json();
 		const userData = body.formData;
+		console.log(" UserData : ", userData);
 
 		// Confirm data exists
-		if (!userData.email || !userData.password) {
+		if (!userData.email || !userData.password || !userData.username) {
 			return NextResponse.json(
-				{ message: "All fields are required", error },
+				{ message: "All fields are required" },
 				{ status: 400 }
 			);
 		}
@@ -22,17 +23,17 @@ export async function POST(req) {
 
 		if (duplicate) {
 			return NextResponse.json(
-				{ message: "Duplicate email found", error },
+				{ message: "Duplicate email found" },
 				{ status: 409 }
 			);
 		}
 
-		const hasPassword = await bcrypt.hash(userData.password, 10);
-		userData.password = hasPassword;
+		const hashPassword = await bcrypt.hash(userData.password, 10);
+		userData.password = hashPassword;
 
-		await userData.create(userData);
+		await User.create(userData);
 		return NextResponse.json(
-			{ message: "Success user created", error },
+			{ message: "Success user created" },
 			{ status: 201 }
 		);
 	} catch (error) {
