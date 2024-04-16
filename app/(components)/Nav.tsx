@@ -40,7 +40,7 @@ const Nav = async ({ session }: NavProps) => {
 					<>
 						<SearchBar />
 						<div className="mt-4 mr-2 flex justify-between space-x-4">
-							<p className="text-default-text">mikefyke@hotmail.com</p>
+							<p className="text-default-text">{session.user.name}</p>
 							<Link
 								href="/api/auth/signout?callbackUrl=/"
 								style={{ display: "contents" }}

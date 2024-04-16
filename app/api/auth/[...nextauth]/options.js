@@ -41,6 +41,11 @@ export const options = {
 		CredentialsProvider({
 			name: "Credentials",
 			credentials: {
+				username: {
+					label: "Username",
+					type: "text",
+					placeholder: "Enter your username",
+				},
 				email: {
 					label: "Email",
 					type: "text",
@@ -54,6 +59,7 @@ export const options = {
 			},
 			async authorize(credentials) {
 				try {
+					console.log("Creds : ", credentials);
 					const foundUser = await User.findOne({ email: credentials.email })
 						.lean()
 						.exec();
@@ -68,6 +74,7 @@ export const options = {
 							console.log("Good pass");
 							delete foundUser.password;
 							foundUser["role"] = "Unverified email";
+							foundUser["name"] = credentials.username;
 							return foundUser;
 						}
 					}
