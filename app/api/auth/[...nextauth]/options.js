@@ -8,8 +8,6 @@ export const options = {
 	providers: [
 		GitHubProvider({
 			profile(profile) {
-				console.log("Github profile : ", profile);
-
 				let userRole = "Github User";
 				if (profile?.email == "mikefyke@hotmail.com") {
 					userRole = "admin";
@@ -25,8 +23,6 @@ export const options = {
 		}),
 		GoogleProvider({
 			profile(profile) {
-				console.log("Google profile : ", profile);
-
 				let userRole = "Google User";
 
 				return {
@@ -59,7 +55,6 @@ export const options = {
 			},
 			async authorize(credentials) {
 				try {
-					console.log("Creds : ", credentials);
 					const foundUser = await User.findOne({ email: credentials.email })
 						.lean()
 						.exec();
@@ -73,8 +68,12 @@ export const options = {
 						if (match) {
 							console.log("Good pass");
 							delete foundUser.password;
-							foundUser["role"] = "Unverified email";
 							foundUser["name"] = credentials.username;
+							if (credentials.email === "mikefyke@hotmail.com") {
+								foundUser["role"] = "admin";
+							} else {
+								foundUser["role"] = "Unverified email";
+							}
 							return foundUser;
 						}
 					}
