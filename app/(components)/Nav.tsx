@@ -1,5 +1,6 @@
 import {
 	faBook,
+	faCirclePlus,
 	faClipboard,
 	faHouse,
 	faMagnifyingGlass,
@@ -14,6 +15,7 @@ interface NavProps {
 }
 
 const Nav = async ({ session }: NavProps) => {
+	console.log("Session : ", session);
 	return (
 		<nav className="flex justify-between bg-nav p-4">
 			<div className="flex items-center space-x-10">
@@ -31,6 +33,11 @@ const Nav = async ({ session }: NavProps) => {
 						<Link href="/SearchPage">
 							<FontAwesomeIcon icon={faMagnifyingGlass} className="icon" />
 						</Link>
+						{session.user.role === "admin" ? (
+							<Link href="/CreateItemPage">
+								<FontAwesomeIcon icon={faCirclePlus} className="icon" />
+							</Link>
+						) : null}
 					</>
 				) : null}
 			</div>
