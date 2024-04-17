@@ -11,4 +11,5 @@ export type Recipe = {
 	ingredients: Array<Ingredient>;
 	steps: [];
 	image: { name: string; file: string };
+	_id: string;
 };

@@ -1,6 +1,7 @@
 import RecipeCard from "@/app/(components)/RecipeCard";
 import { Recipe } from "@/app/(models)/Recipe";
-import { options } from "../api/auth/[...nextauth]/options";
+import { options } from "@/app/api/auth/[...nextauth]/options";
+
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 

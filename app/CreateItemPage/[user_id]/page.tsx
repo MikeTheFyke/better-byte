@@ -1,4 +1,4 @@
-import CreateItemForm from "../(components)/CreateItem/CreateItemForm";
+import CreateItemForm from "../../(components)/CreateItem/CreateItemForm";
 
 const CreateItemPage = () => {
 	return (
