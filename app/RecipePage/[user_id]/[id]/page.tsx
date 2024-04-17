@@ -14,6 +14,15 @@ const RecipePage = async ({ params }: any) => {
 				) : null}
 			</div> */}
 			<div className="flex flex-col">
+				<div
+					className="h-[260px]"
+					style={{
+						backgroundImage: `url(${selectedRecipe.image.file})`,
+						backgroundRepeat: "no-repeat",
+						backgroundSize: "cover",
+						backgroundPosition: "center",
+					}}
+				></div>
 				<h6>{selectedRecipe.title}</h6>
 				<h6>{selectedRecipe.description}</h6>
 				<h6>Servings: {selectedRecipe.servings.toString()}</h6>
