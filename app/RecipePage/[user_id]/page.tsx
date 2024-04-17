@@ -17,7 +17,7 @@ const getRecipes = async () => {
 	}
 };
 
-const RecipePage = async ({ params }) => {
+const RecipePage = async ({ params }: any) => {
 	const { recipes } = await getRecipes();
 	const session = await getServerSession(options);
 
