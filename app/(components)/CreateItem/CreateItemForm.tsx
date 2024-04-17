@@ -1,7 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { Ingredient } from "@/app/(models)/Ingredient";
 
 const CreateItemForm = () => {
 	const router = useRouter();

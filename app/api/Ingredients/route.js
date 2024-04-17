@@ -1,4 +1,4 @@
-import Ingredient from "@/app/(models)/Ingredient";
+import Ingredient from "@/app/(models)/Ingredients";
 import { NextResponse } from "next/server";
 
 export async function POST(req) {
