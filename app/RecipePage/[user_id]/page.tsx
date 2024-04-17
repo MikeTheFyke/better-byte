@@ -17,7 +17,7 @@ const getRecipes = async () => {
 	}
 };
 
-const RecipePage = async () => {
+const RecipePage = async ({ params }) => {
 	const { recipes } = await getRecipes();
 	const session = await getServerSession(options);
 
@@ -28,7 +28,7 @@ const RecipePage = async () => {
 					{recipes.map((recipe: Recipe) => {
 						return (
 							<>
-								<RecipeCard recipe={recipe} />
+								<RecipeCard recipe={recipe} userId={params.user_id} />
 							</>
 						);
 					})}

@@ -12,9 +12,10 @@ import Link from "next/link";
 
 interface Props {
 	recipe: Recipe;
+	userId: string;
 }
 
-const RecipeCard = ({ recipe }: Props) => {
+const RecipeCard = ({ recipe, userId }: Props) => {
 	return (
 		<div
 			className="w-[400px] h-[400px] bg-slate-100 hover:bg-slate-300 rounded-xl"
@@ -23,7 +24,7 @@ const RecipeCard = ({ recipe }: Props) => {
 			<div className="flex justify-between p-1">
 				<DeleteCard id={recipe._id} recipeName={recipe.title} />
 				<Link
-					href={`/RecipePage/${recipe._id}`}
+					href={`/RecipePage/${userId}/${recipe._id}`}
 					style={{ display: "contents" }}
 				>
 					<div className="flex text-black place-items-center justify-center text-2xl">
