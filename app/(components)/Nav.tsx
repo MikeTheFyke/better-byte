@@ -15,7 +15,6 @@ interface NavProps {
 }
 
 const Nav = async ({ session }: NavProps) => {
-	console.log("Session : ", session);
 	return (
 		<nav className="flex justify-between bg-nav p-4">
 			<div className="flex items-center space-x-10">

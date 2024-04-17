@@ -20,8 +20,6 @@ const RecipePage = async () => {
 	const { recipes } = await getRecipes();
 	const session = await getServerSession(options);
 
-	console.log("Recipe sessions : ", session);
-
 	if (session) {
 		return (
 			<div className="flex justify-center mt-10">

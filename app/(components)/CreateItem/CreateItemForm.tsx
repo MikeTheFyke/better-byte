@@ -1,9 +1,32 @@
 "use client";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { Ingredient } from "@/app/(models)/Ingredient";
 
 const CreateItemForm = () => {
+	const router = useRouter();
+
 	const handleSubmit = async (e: any) => {
 		e.preventDefault();
+		let updatedItems = itemData.stores.filter((e) => e.checked !== false);
+
+		const formData = {
+			name: itemData.name.toUpperCase(),
+			stores: updatedItems,
+		};
+
+		const res = await fetch("/api/Ingredients", {
+			method: "POST",
+			body: JSON.stringify({ formData }),
+			"content-type": "applciation/json",
+		});
+
+		if (!res.ok) {
+			const response = await res.json();
+		} else {
+			setItemData(startingItemData);
+			router.refresh();
+		}
 	};
 
 	const boxChecked = (id: string) => {
@@ -19,10 +42,11 @@ const CreateItemForm = () => {
 		}));
 	};
 
-	const updateItem = (item: string) => {
+	const updateItem = (e: any) => {
+		const value = e.target.value;
 		setItemData((prevState) => ({
 			...prevState,
-			name: item,
+			name: value,
 		}));
 	};
 
@@ -63,12 +87,6 @@ const CreateItemForm = () => {
 			checked: false,
 		},
 		{
-			name: "Sobeys",
-			price: "",
-			unit: "",
-			checked: false,
-		},
-		{
 			name: "Galleria",
 			price: "",
 			unit: "",
@@ -92,7 +110,7 @@ const CreateItemForm = () => {
 					id="name"
 					name="name"
 					type="text"
-					onChange={() => updateItem(itemData.name)}
+					onChange={(e) => updateItem(e)}
 					required={true}
 					value={itemData.name}
 					className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 w-full mb-6 mt-4"
@@ -119,14 +137,14 @@ const CreateItemForm = () => {
 								{store.name}
 							</label>
 						</div>
-						<div>
+						<div className=" mr-4">
 							<label className="text-lg">Item price</label>
 							<input
 								id="price"
 								name="price"
 								type="text"
 								onChange={(e) => ingredientUpdate(e, store.name)}
-								required={true}
+								required={store.checked}
 								value={store.price}
 								className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 w-full mb-6"
 								placeholder="Item Price $"
@@ -139,7 +157,7 @@ const CreateItemForm = () => {
 								name="unit"
 								type="text"
 								onChange={(e) => ingredientUpdate(e, store.name)}
-								required={true}
+								required={store.checked}
 								value={store.unit}
 								className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 w-full mb-6"
 								placeholder="Item unit"

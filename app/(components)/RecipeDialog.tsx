@@ -168,8 +168,6 @@ const RecipeDialog = ({ setOpenDialog }: Props) => {
 		setOpenDialog(false);
 	};
 
-	console.log("Formdata : ", formData);
-
 	return (
 		<div
 			data-dialog-backdrop="recipe-dialog"

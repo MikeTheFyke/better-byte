@@ -60,13 +60,11 @@ export const options = {
 						.exec();
 
 					if (foundUser) {
-						console.log("User exists");
 						const match = await bcrypt.compare(
 							credentials.password,
 							foundUser.password
 						);
 						if (match) {
-							console.log("Good pass");
 							delete foundUser.password;
 							foundUser["name"] = credentials.username;
 							if (credentials.email === "mikefyke@hotmail.com") {
