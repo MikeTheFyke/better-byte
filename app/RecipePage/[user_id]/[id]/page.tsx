@@ -6,8 +6,9 @@ const RecipePage = async ({ params }: any) => {
 	const recipes = await getRecipeById(recipeId);
 	const selectedRecipe: Recipe = recipes.foundRecipe;
 
-	// const [walmartPrices, setWalmartPrices] = useState(0);
-	// console.log("WalmartPrices : ", walmartPrices);
+	const names = selectedRecipe.ingredients.map((ingredient) => {
+		return ingredient.name.toUpperCase();
+	});
 
 	return (
 		<>
@@ -51,14 +52,10 @@ const RecipePage = async ({ params }: any) => {
 								<div className="w-[100px] text-center">Galleria</div>
 							</div>
 						</div>
-						{selectedRecipe.ingredients.map((ingredient) => {
+						{names.map((ingredient) => {
 							return (
 								<>
-									<IngredientGrid
-										name={ingredient.name}
-										// walmartPrices={walmartPrices}
-										// setWalmartPrices={setWalmartPrices}
-									/>
+									<IngredientGrid name={ingredient} names={names} />
 								</>
 							);
 						})}

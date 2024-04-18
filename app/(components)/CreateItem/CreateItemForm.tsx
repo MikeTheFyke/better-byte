@@ -7,11 +7,11 @@ const CreateItemForm = () => {
 
 	const handleSubmit = async (e: any) => {
 		e.preventDefault();
-		let updatedItems = itemData.stores.filter((e) => e.checked !== false);
+		// let updatedItems = itemData.stores.map((e) => e.checked !== false);
 
 		const formData = {
 			name: itemData.name.toUpperCase(),
-			stores: updatedItems,
+			stores: itemData.stores,
 		};
 
 		const res = await fetch("/api/Ingredients", {
@@ -69,25 +69,25 @@ const CreateItemForm = () => {
 	const startingStores = [
 		{
 			name: "Walmart",
-			price: "",
+			price: "0",
 			unit: "",
 			checked: false,
 		},
 		{
 			name: "Loblaws",
-			price: "",
+			price: "0",
 			unit: "",
 			checked: false,
 		},
 		{
 			name: "noFrills",
-			price: "",
+			price: "0",
 			unit: "",
 			checked: false,
 		},
 		{
 			name: "Galleria",
-			price: "",
+			price: "0",
 			unit: "",
 			checked: false,
 		},

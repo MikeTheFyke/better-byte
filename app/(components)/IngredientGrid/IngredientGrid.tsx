@@ -1,37 +1,34 @@
-import { Ingredient, getIngredientByName } from "@/app/(models)/Ingredients";
-import React, { Dispatch, SetStateAction } from "react";
+import {
+	Ingredient,
+	findIngredients,
+	getIngredientByName,
+} from "@/app/(models)/Ingredients";
+import React from "react";
+import IngredientRow from "./IngredientRow";
+import WalmartColumn from "./TotalRow";
 interface Props {
 	name: string;
-	// walmartPrices: number;
-	// setWalmartPrices: Dispatch<SetStateAction<number>>;
+	names: string[];
 }
 
-const IngredientGrid = async ({
-	name,
-}: // walmartPrices,
-// setWalmartPrices,
-Props) => {
-	const ingredients = await getIngredientByName(name.toUpperCase());
-	const selectedIngredient: Ingredient = ingredients.foundIngredient;
+const IngredientGrid = async ({ name, names }: Props) => {
+	// let itemsArray: any[] = [];
+	const ingredient = await getIngredientByName(name.toUpperCase());
+	// const found = await Promise.all(
+	// 	names.map(async (name) => {
+	// 		findIngredients(name).then((value) => {
+	// 			itemsArray.push(value.foundIngredient);
+	// 			return itemsArray;
+	// 		});
+	// 		return itemsArray;
+	// 	})
+	// );
+	const selectedIngredient: Ingredient = ingredient.foundIngredient;
+	// const ingredients = found;
 
-	// let walmartPrices = 0;
-	let loblawsPrices = [];
-	let noFrillsPrices = [];
-	let galleriaPrices = [];
-
-	if (selectedIngredient && selectedIngredient.stores) {
-		selectedIngredient.stores.map((store) => {
-			if (store.name === "Walmart") {
-				// setWalmartPrices(walmartPrices + store.price);
-			} else if (store.name === "Loblaws") {
-				loblawsPrices.push(store.price);
-			} else if (store.name === "moFrills") {
-				noFrillsPrices.push(store.price);
-			} else if (store.name === "Galleria") {
-				galleriaPrices.push(store.price);
-			}
-		});
-	}
+	// if (selectedIngredient && selectedIngredient.stores) {
+	// 	console.log("Found : ", selectedIngredient);
+	// }
 
 	if (selectedIngredient && selectedIngredient.stores) {
 		return (
@@ -39,11 +36,20 @@ Props) => {
 				<div className="grid grid-cols-4 bg-red-500 w-[400px]">
 					{selectedIngredient.stores.map((store: any) => {
 						return (
-							<div key={store.name} className="w-[100px] text-center">
-								${store.price}
-							</div>
+							<>
+								<IngredientRow price={store.price} name={store.name} />
+							</>
 						);
 					})}
+					{/* {selectedIngredient.stores.map((store: any) => {
+						if (store.name === "Walmart") {
+							return (
+								<>
+									<WalmartColumn price={store.price} name={store.name} />
+								</>
+							);
+						}
+					})} */}
 				</div>
 			</div>
 		);

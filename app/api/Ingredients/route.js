@@ -1,4 +1,4 @@
-import Ingredient from "@/app/(models)/Ingredients";
+import Ingredient from "@/app/(models)/Ingredient";
 import { NextResponse } from "next/server";
 
 export async function POST(req) {
@@ -6,6 +6,8 @@ export async function POST(req) {
 		const body = await req.json();
 		const IngredientData = body.formData;
 		await Ingredient.create(IngredientData);
+
+		console.log("IngredientData : ", IngredientData);
 
 		return NextResponse.json(
 			{ message: "Ingredient Created" },

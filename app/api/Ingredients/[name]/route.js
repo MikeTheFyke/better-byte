@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import Ingredient from "../../../(models)/Ingredient";
+import Ingredient from "@/app/(models)/Ingredient";
 
 // Find ingredient
 export async function GET(req, { params }) {
