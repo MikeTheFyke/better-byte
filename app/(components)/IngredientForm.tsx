@@ -3,10 +3,10 @@
 import { faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
-import { Ingredient } from "../(models)/Recipe";
+import { RecipeIngredient } from "../(models)/Recipe";
 
 interface Props {
-	ingredientData: Ingredient;
+	ingredientData: RecipeIngredient;
 	setIngredientData: React.Dispatch<
 		React.SetStateAction<{
 			name: string;

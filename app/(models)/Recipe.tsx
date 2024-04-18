@@ -1,4 +1,10 @@
-export type Ingredient = {
+export type RecipeTotal = {
+	store: string;
+	total: number | string;
+	allItems: boolean;
+};
+
+export type RecipeIngredient = {
 	name: string;
 	quantity: string;
 	unit: string;
@@ -8,9 +14,10 @@ export type Recipe = {
 	title: string;
 	description: string;
 	servings: Number;
-	ingredients: Array<Ingredient>;
+	ingredients: Array<RecipeIngredient>;
 	steps: [];
 	image: { name: string; file: string };
+	totals: Array<RecipeTotal> | undefined;
 	_id: string;
 };
 
