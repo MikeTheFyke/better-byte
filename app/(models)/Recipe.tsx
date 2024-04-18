@@ -17,7 +17,7 @@ export type Recipe = {
 	ingredients: Array<RecipeIngredient>;
 	steps: [];
 	image: { name: string; file: string };
-	totals: Array<RecipeTotal> | undefined;
+	totals: Array<RecipeTotal>;
 	_id: string;
 };
 

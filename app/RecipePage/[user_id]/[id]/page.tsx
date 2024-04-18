@@ -31,9 +31,15 @@ const RecipePage = async ({ params }: any) => {
 					<div>
 						<div className="mb-4">
 							<h1 className="text-2xl mb-2">Ingredients</h1>
+
+							<div className="flex justify-start mb-2">
+								<h1 className="w-[200px] font-bold">Quantity/Unit</h1>
+								<h1 className="w-[200px] font-bold">Ingredients</h1>
+							</div>
+
 							{selectedRecipe.ingredients.map((ingredient) => {
 								return (
-									<div className="flex justify-between" key={ingredient.name}>
+									<div className="flex justify-start" key={ingredient.name}>
 										<h6 className="w-[200px]">
 											{ingredient.quantity} {ingredient.unit}
 										</h6>
@@ -43,9 +49,9 @@ const RecipePage = async ({ params }: any) => {
 							})}
 						</div>
 					</div>
-					<div className="mt-4">
+					<div className="mt-8">
 						<div className="flex justify-center">
-							<div className="grid grid-cols-4 bg-red-500 w-[400px]">
+							<div className="grid grid-cols-5 w-[500px]">
 								<div className="w-[100px] text-center">Walmart</div>
 								<div className="w-[100px] text-center">Loblaws</div>
 								<div className="w-[100px] text-center">noFrills</div>
@@ -59,20 +65,39 @@ const RecipePage = async ({ params }: any) => {
 								</>
 							);
 						})}
+						<div className="flex justify-center">
+							<div className="grid grid-cols-5 w-[500px]">
+								<div className="w-[100px] text-center">
+									{selectedRecipe.totals[0].total}
+								</div>
+								<div className="w-[100px] text-center">
+									{selectedRecipe.totals[1].total}
+								</div>
+								<div className="w-[100px] text-center">
+									{selectedRecipe.totals[2].total}
+								</div>
+								<div className="w-[100px] text-center">
+									{selectedRecipe.totals[3].total}
+								</div>
+								<div className="w-[100px] text-center">Total</div>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
 
-			<div className="flex justify-center mt-4">
-				<div>
-					<h1 className="text-2xl  mb-2">Steps</h1>
-					{selectedRecipe.steps.map((step) => {
-						return (
-							<>
-								<li>{step}</li>
-							</>
-						);
-					})}
+			<div className="flex justify-center mt-10">
+				<div className="grid grid-cols-1 gap-4">
+					<div className="w-full">
+						<h1 className="text-2xl mb-2 w-[1000px]">Steps</h1>
+						{selectedRecipe.steps.map((step) => {
+							return (
+								<>
+									<li>{step}</li>
+								</>
+							);
+						})}
+					</div>
 				</div>
 			</div>
 		</>
