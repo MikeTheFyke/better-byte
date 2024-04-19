@@ -30,7 +30,7 @@ const RecipePage = async ({ params }: any) => {
 							backgroundPosition: "center",
 						}}
 					/>
-					<div className="min-w-[300px]">
+					<div className="min-w-[310px]">
 						<h6 className="text-4xl">{selectedRecipe.title}</h6>
 						<h6>{selectedRecipe.description}</h6>
 						<h6>Serves: {selectedRecipe.servings.toString()}</h6>
@@ -53,11 +53,11 @@ const RecipePage = async ({ params }: any) => {
 				</div>
 			</div>
 			<div className="flex justify-center mt-10">
-				<div className="grid grid-cols-2 gap-0 place-items-center w-[630px] -ml-[200px]">
+				<div className="grid grid-cols-2 gap-0 place-items-center w-[630px] md:w-[680px] -ml-[200px]">
 					{/* Grid start */}
 
-					<div className="w-[100px]">
-						<div className="grid grid-rows-5 w-[130px]">
+					<div className="w-[120px] md:w-[180px]">
+						<div className="grid grid-rows-5 w-[130px] md:w-[180px]">
 							<h1 className="w-[120px] font-bold">Ingredient</h1>
 							{selectedRecipe.ingredients.map((ingredient) => {
 								return (
@@ -65,11 +65,13 @@ const RecipePage = async ({ params }: any) => {
 										className="flex justify-start whitespace-nowrap"
 										key={ingredient.name}
 									>
-										<h6 className="w-[130px] truncate">{ingredient.name}</h6>
+										<h6 className="w-[130px] md:w-[180px] truncate">
+											{ingredient.name}
+										</h6>
 									</div>
 								);
 							})}
-							<h1 className="w-[100px] font-bold">Total</h1>
+							<h1 className="w-[100px] font-bold text-xl">Total</h1>
 						</div>
 					</div>
 
@@ -80,7 +82,7 @@ const RecipePage = async ({ params }: any) => {
 								{availableLocations.map((location) => {
 									return (
 										<>
-											<IngredientRow displayValue={location} />
+											<IngredientRow displayValue={location} currency={false} />
 										</>
 									);
 								})}
@@ -102,7 +104,11 @@ const RecipePage = async ({ params }: any) => {
 								{totals.map((price) => {
 									return (
 										<>
-											<IngredientRow displayValue={price} />
+											<IngredientRow
+												displayValue={price}
+												currency={true}
+												styles={"text-xl text-bold"}
+											/>
 										</>
 									);
 								})}
@@ -117,7 +123,7 @@ const RecipePage = async ({ params }: any) => {
 
 			<div className="flex justify-center mt-10">
 				<div className="grid grid-cols-1 gap-4">
-					<div className="w-full pl-6">
+					<div className="w-full pl-4">
 						<h1 className="text-2xl mb-2 w-[1000px]">Steps</h1>
 						{selectedRecipe.steps.map((step) => {
 							return (

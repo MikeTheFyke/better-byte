@@ -28,6 +28,7 @@ const IngredientGrid = async ({ name, names }: Props) => {
 	// if (selectedIngredient && selectedIngredient.stores) {
 	// 	console.log("Found : ", selectedIngredient);
 	// }
+	const currency = "$";
 
 	if (selectedIngredient && selectedIngredient.stores) {
 		return (
@@ -35,7 +36,7 @@ const IngredientGrid = async ({ name, names }: Props) => {
 				{selectedIngredient.stores.map((store: any) => {
 					return (
 						<div key={name} className="w-[100px] text-center">
-							{store.price === 0 ? "N/A" : store.price}
+							{store.price === 0 ? "N/A" : `${currency}${store.price}`}
 						</div>
 					);
 				})}
