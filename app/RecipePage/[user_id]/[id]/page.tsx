@@ -20,9 +20,9 @@ const RecipePage = async ({ params }: any) => {
 	return (
 		<>
 			<div className="flex justify-center mt-10">
-				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-4">
+				<div className="grid grid-cols-2 gap-4">
 					<div
-						className="h-[260px]"
+						className="h-[100%] w-[100%]"
 						style={{
 							backgroundImage: `url(${selectedRecipe.image.file})`,
 							backgroundRepeat: "no-repeat",
@@ -30,7 +30,7 @@ const RecipePage = async ({ params }: any) => {
 							backgroundPosition: "center",
 						}}
 					/>
-					<div>
+					<div className="min-w-[300px]">
 						<h6 className="text-4xl">{selectedRecipe.title}</h6>
 						<h6>{selectedRecipe.description}</h6>
 						<h6>Serves: {selectedRecipe.servings.toString()}</h6>
@@ -42,8 +42,8 @@ const RecipePage = async ({ params }: any) => {
 										className="flex justify-start whitespace-nowrap"
 										key={ingredient.name}
 									>
-										<h6 className="w-[20px]">{ingredient.quantity}</h6>
-										<h6 className="w-[60px]">{ingredient.unit}</h6>
+										<h6 className="w-[60px]">{ingredient.quantity}</h6>
+										<h6 className="w-[80px]">{ingredient.unit}</h6>
 										<h6 className="w-[100px]">{ingredient.name}</h6>
 									</div>
 								);
@@ -53,19 +53,19 @@ const RecipePage = async ({ params }: any) => {
 				</div>
 			</div>
 			<div className="flex justify-center mt-10">
-				<div className="grid grid-cols-2 gap-0 place-items-center w-[600px] -ml-[200px]">
+				<div className="grid grid-cols-2 gap-0 place-items-center w-[630px] -ml-[200px]">
 					{/* Grid start */}
 
 					<div className="w-[100px]">
-						<div className="grid grid-rows-5 w-[100px]">
-							<h1 className="w-[100px] font-bold">Ingredients</h1>
+						<div className="grid grid-rows-5 w-[130px]">
+							<h1 className="w-[120px] font-bold">Ingredient</h1>
 							{selectedRecipe.ingredients.map((ingredient) => {
 								return (
 									<div
 										className="flex justify-start whitespace-nowrap"
 										key={ingredient.name}
 									>
-										<h6 className="w-[100px]">{ingredient.name}</h6>
+										<h6 className="w-[130px] truncate">{ingredient.name}</h6>
 									</div>
 								);
 							})}
@@ -117,7 +117,7 @@ const RecipePage = async ({ params }: any) => {
 
 			<div className="flex justify-center mt-10">
 				<div className="grid grid-cols-1 gap-4">
-					<div className="w-full">
+					<div className="w-full pl-6">
 						<h1 className="text-2xl mb-2 w-[1000px]">Steps</h1>
 						{selectedRecipe.steps.map((step) => {
 							return (
