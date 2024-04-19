@@ -35,16 +35,22 @@ const RecipePage = async ({ params }: any) => {
 						<h6>{selectedRecipe.description}</h6>
 						<h6>Serves: {selectedRecipe.servings.toString()}</h6>
 						<div className="grid grid-rows-5 w-[100px]">
-							<h1 className="w-[100px] font-bold">Ingredients</h1>
+							<h1 className="w-[100px] text-2xl font-bold mb-2">Ingredients</h1>
 							{selectedRecipe.ingredients.map((ingredient) => {
 								return (
 									<div
-										className="flex justify-start whitespace-nowrap"
+										className="flex justify-start whitespace-nowrap h-[30px] pt-1"
 										key={ingredient.name}
 									>
-										<h6 className="w-[60px]">{ingredient.quantity}</h6>
-										<h6 className="w-[80px]">{ingredient.unit}</h6>
-										<h6 className="w-[100px]">{ingredient.name}</h6>
+										<h6 className="w-[60px] h-[30px] pt-1">
+											{ingredient.quantity}
+										</h6>
+										<h6 className="w-[80px] h-[30px] pt-1">
+											{ingredient.unit}
+										</h6>
+										<h6 className="w-[160px] h-[30px] pt-1 sm:truncate sm:overflow-hidden">
+											{ingredient.name}
+										</h6>
 									</div>
 								);
 							})}
@@ -56,11 +62,13 @@ const RecipePage = async ({ params }: any) => {
 			<div className="flex justify-center mt-10">
 				<div className="grid grid-cols-1 gap-4">
 					<div className="w-full pl-4">
-						<h1 className="text-2xl mb-2 w-[1000px]">Steps</h1>
-						{selectedRecipe.steps.map((step) => {
+						<h1 className="text-2xl mb-2 w-[680px]">Steps</h1>
+						{selectedRecipe.steps.map((step, index) => {
 							return (
 								<>
-									<li>{step}</li>
+									<ul>
+										{index + 1}. {step}
+									</ul>
 								</>
 							);
 						})}
@@ -68,11 +76,11 @@ const RecipePage = async ({ params }: any) => {
 				</div>
 			</div>
 			<div className="flex justify-center">
-				<div className="grid grid-cols-[130px_500px] md:grid-cols-[180px_500px] w-[630px] md:w-[688px] justify-center px-4 mt-10 border-4 border-slate-600 rounded">
+				<div className="grid grid-cols-[130px_500px] md:grid-cols-[180px_500px] w-[638px] md:w-[688px] justify-center px-4 mt-10 border-4 border-slate-600 rounded">
 					{/* Grid start */}
 
 					<div className="w-[130px] md:w-[180px] grid grid-rows-5 striped">
-						<h1 className="w-[120px] font-bold text-xl">Ingredient</h1>
+						<h1 className="w-[120px] font-bold text-xl pl-2">Ingredient</h1>
 						{selectedRecipe.ingredients.map((ingredient) => {
 							return (
 								<div
@@ -85,7 +93,7 @@ const RecipePage = async ({ params }: any) => {
 								</div>
 							);
 						})}
-						<h1 className="w-[100px] font-bold text-xl">Total</h1>
+						<h1 className="w-[100px] font-bold text-xl pl-2">Total</h1>
 					</div>
 
 					{/* Grid Inner */}

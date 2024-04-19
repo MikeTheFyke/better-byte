@@ -18,8 +18,8 @@ interface NavProps {
 const Nav = async ({ session, userId }: NavProps) => {
 	return (
 		<>
-			<nav className="flex justify-between bg-nav p-4">
-				<div className="flex items-center space-x-10">
+			<nav className="flex justify-between bg-green-700 p-4">
+				<div className="flex items-center sm:space-x-5 md:space-x-10">
 					<Link href="/">
 						<FontAwesomeIcon icon={faHouse} className="icon" />
 					</Link>
