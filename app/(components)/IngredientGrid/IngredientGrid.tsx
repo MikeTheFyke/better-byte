@@ -4,8 +4,6 @@ import {
 	getIngredientByName,
 } from "@/app/(models)/Ingredients";
 import React from "react";
-import IngredientRow from "./IngredientRow";
-import WalmartColumn from "./TotalRow";
 
 interface Props {
 	name: string;
@@ -33,20 +31,18 @@ const IngredientGrid = async ({ name, names }: Props) => {
 
 	if (selectedIngredient && selectedIngredient.stores) {
 		return (
-			<div className="flex justify-center">
-				<div className="grid grid-cols-5 w-[500px]">
-					{selectedIngredient.stores.map((store: any) => {
-						return (
-							<>
-								<IngredientRow price={store.price} name={store.name} />
-							</>
-						);
-					})}
-					<div className="w-[100px] text-center">
-						{selectedIngredient.stores[0].unit}
-					</div>
+			<>
+				{selectedIngredient.stores.map((store: any) => {
+					return (
+						<div key={name} className="w-[100px] text-center">
+							{store.price === 0 ? "N/A" : store.price}
+						</div>
+					);
+				})}
+				<div className="w-[100px] text-center">
+					{selectedIngredient.stores[0].unit}
 				</div>
-			</div>
+			</>
 		);
 	}
 };

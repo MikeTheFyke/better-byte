@@ -2,14 +2,12 @@
 import React from "react";
 
 interface Props {
-	price: number;
-	name: string;
+	displayValue: string | number;
 }
 
-const IngredientRow = ({ price, name }: Props) => {
-	const displayValue = price === 0 ? "N/A" : `${price}`;
+const IngredientRow = ({ displayValue }: Props) => {
 	return (
-		<div key={name} className="w-[100px] text-center">
+		<div key={displayValue} className="w-[100px] text-center">
 			{displayValue}
 		</div>
 	);

@@ -1,4 +1,5 @@
 import IngredientGrid from "@/app/(components)/IngredientGrid/IngredientGrid";
+import IngredientRow from "@/app/(components)/IngredientGrid/IngredientRow";
 import { Recipe, getRecipeById } from "@/app/(models)/Recipe";
 
 const RecipePage = async ({ params }: any) => {
@@ -9,6 +10,12 @@ const RecipePage = async ({ params }: any) => {
 	const names = selectedRecipe.ingredients.map((ingredient) => {
 		return ingredient.name.toUpperCase();
 	});
+
+	const totals = selectedRecipe.totals.map((item) => {
+		return item.total;
+	});
+
+	const availableLocations = ["Walmart", "Loblaws", "noFrills", "Galleria"];
 
 	return (
 		<>
@@ -27,62 +34,84 @@ const RecipePage = async ({ params }: any) => {
 						<h6 className="text-4xl">{selectedRecipe.title}</h6>
 						<h6>{selectedRecipe.description}</h6>
 						<h6>Serves: {selectedRecipe.servings.toString()}</h6>
-					</div>
-					<div>
-						<div className="mb-4">
-							<h1 className="text-2xl mb-2">Ingredients</h1>
-
-							<div className="flex justify-start mb-2">
-								<h1 className="w-[200px] font-bold">Quantity/Unit</h1>
-								<h1 className="w-[200px] font-bold">Ingredients</h1>
-							</div>
-
+						<div className="grid grid-rows-5 w-[100px]">
+							<h1 className="w-[100px] font-bold">Ingredients</h1>
 							{selectedRecipe.ingredients.map((ingredient) => {
 								return (
-									<div className="flex justify-start" key={ingredient.name}>
-										<h6 className="w-[200px]">
-											{ingredient.quantity} {ingredient.unit}
-										</h6>
-										<h6 className="w-[200px]">{ingredient.name}</h6>
+									<div
+										className="flex justify-start whitespace-nowrap"
+										key={ingredient.name}
+									>
+										<h6 className="w-[20px]">{ingredient.quantity}</h6>
+										<h6 className="w-[60px]">{ingredient.unit}</h6>
+										<h6 className="w-[100px]">{ingredient.name}</h6>
 									</div>
 								);
 							})}
 						</div>
 					</div>
-					<div className="mt-8">
+				</div>
+			</div>
+			<div className="flex justify-center mt-10">
+				<div className="grid grid-cols-2 gap-0 place-items-center w-[600px] -ml-[200px]">
+					{/* Grid start */}
+
+					<div className="w-[100px]">
+						<div className="grid grid-rows-5 w-[100px]">
+							<h1 className="w-[100px] font-bold">Ingredients</h1>
+							{selectedRecipe.ingredients.map((ingredient) => {
+								return (
+									<div
+										className="flex justify-start whitespace-nowrap"
+										key={ingredient.name}
+									>
+										<h6 className="w-[100px]">{ingredient.name}</h6>
+									</div>
+								);
+							})}
+							<h1 className="w-[100px] font-bold">Total</h1>
+						</div>
+					</div>
+
+					{/* Grid Inner */}
+					<div className="w-[500px]">
 						<div className="flex justify-center">
 							<div className="grid grid-cols-5 w-[500px]">
-								<div className="w-[100px] text-center">Walmart</div>
-								<div className="w-[100px] text-center">Loblaws</div>
-								<div className="w-[100px] text-center">noFrills</div>
-								<div className="w-[100px] text-center">Galleria</div>
+								{availableLocations.map((location) => {
+									return (
+										<>
+											<IngredientRow displayValue={location} />
+										</>
+									);
+								})}
 							</div>
 						</div>
-						{names.map((ingredient) => {
-							return (
-								<>
-									<IngredientGrid name={ingredient} names={names} />
-								</>
-							);
-						})}
 						<div className="flex justify-center">
 							<div className="grid grid-cols-5 w-[500px]">
-								<div className="w-[100px] text-center">
-									{selectedRecipe.totals[0].total}
-								</div>
-								<div className="w-[100px] text-center">
-									{selectedRecipe.totals[1].total}
-								</div>
-								<div className="w-[100px] text-center">
-									{selectedRecipe.totals[2].total}
-								</div>
-								<div className="w-[100px] text-center">
-									{selectedRecipe.totals[3].total}
-								</div>
-								<div className="w-[100px] text-center">Total</div>
+								{names.map((ingredient) => {
+									return (
+										<>
+											<IngredientGrid name={ingredient} names={names} />
+										</>
+									);
+								})}
+							</div>
+						</div>
+						<div className="flex justify-center">
+							<div className="grid grid-cols-5 w-[500px]">
+								{totals.map((price) => {
+									return (
+										<>
+											<IngredientRow displayValue={price} />
+										</>
+									);
+								})}
 							</div>
 						</div>
 					</div>
+					{/* Grid Inner end */}
+
+					{/* Grid end */}
 				</div>
 			</div>
 
