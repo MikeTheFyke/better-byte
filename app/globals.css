@@ -12,7 +12,16 @@
 	.store-tab {
 		@apply flex items-center justify-center w-20 h-20 text-2xl font-bold border border-white hover:border-slate-600 hover:cursor-pointer;
 	}
+	.striped div:nth-child(odd) {
+		@apply bg-slate-200;
+	}
 	.striped div:nth-child(even) {
-		@apply bg-red-500;
+		@apply bg-slate-400;
+	}
+	.stripedEnds div:nth-child(odd) {
+		@apply bg-slate-300;
+	}
+	.stripedEnds div:nth-child(even) {
+		@apply bg-slate-500;
 	}
 }

@@ -9,8 +9,8 @@ interface Props {
 
 const IngredientRow = ({ items, currency, styles }: Props) => {
 	return (
-		<div className="flex justify-center bg-red-700">
-			<div className="grid grid-cols-5 w-[500px]">
+		<div className="flex justify-center stripedEnds">
+			<div className="grid grid-cols-4 w-[400px]">
 				{items.map((item: string | number) => {
 					return (
 						<div key={item} className={`w-[100px] text-center ${styles}`}>

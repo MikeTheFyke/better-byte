@@ -50,9 +50,11 @@ const IngredientGrid = async ({ name, names }: Props) => {
 						</div>
 					);
 				})}
-				<div className="w-[100px] md:w-[120px] text-end whitespace-nowrap">
-					<h1 className="text-xl hidden md:block">{displayUnit[0].unit}</h1>
-					<h1 className="text-xl md:hidden">
+				<div className="w-[100px] md:w-[100px] text-end whitespace-nowrap">
+					<h1 className="h-[30px] text-l hidden md:block pt-1">
+						{displayUnit[0].unit}
+					</h1>
+					<h1 className="h-[30px] text-l md:hidden pt-1">
 						{displayUnit[0].unit.split(" ")[0]}
 					</h1>
 				</div>

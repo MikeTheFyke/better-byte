@@ -68,7 +68,7 @@ const RecipePage = async ({ params }: any) => {
 				</div>
 			</div>
 			<div className="flex justify-center">
-				<div className="grid grid-cols-[130px_500px] md:grid-cols-[180px_500px] w-[630px] md:w-[680px] justify-center mt-10">
+				<div className="grid grid-cols-[130px_500px] md:grid-cols-[180px_500px] w-[630px] md:w-[688px] justify-center px-4 mt-10 border-4 border-slate-600 rounded">
 					{/* Grid start */}
 
 					<div className="w-[130px] md:w-[180px] grid grid-rows-5 striped">
@@ -79,7 +79,7 @@ const RecipePage = async ({ params }: any) => {
 									className="flex justify-start whitespace-nowrap"
 									key={ingredient.name}
 								>
-									<h6 className="w-[130px] md:w-[180px] h-[30px] truncate">
+									<h6 className="w-[130px] md:w-[180px] h-[30px] truncate pt-1">
 										{ingredient.name}
 									</h6>
 								</div>
@@ -90,29 +90,33 @@ const RecipePage = async ({ params }: any) => {
 
 					{/* Grid Inner */}
 					<div className="w-[500px] md:[520px]">
-						<IngredientRow
-							items={availableLocations}
-							currency={false}
-							styles={"text-xl font-bold"}
-						/>
-
-						<div className="flex justify-center">
-							<div className="grid grid-cols-5 w-[500px] striped">
-								{names.map((ingredient) => {
-									return (
-										<>
-											<IngredientGrid name={ingredient} names={names} />
-										</>
-									);
-								})}
+						<div className="w-[400px] md:[420px]">
+							<IngredientRow
+								items={availableLocations}
+								currency={false}
+								styles={"text-xl font-bold"}
+							/>
+						</div>
+						<div className="w-[500px] md:[520px]">
+							<div className="flex justify-center">
+								<div className="grid grid-cols-5 w-[500px] striped">
+									{names.map((ingredient) => {
+										return (
+											<>
+												<IngredientGrid name={ingredient} names={names} />
+											</>
+										);
+									})}
+								</div>
 							</div>
 						</div>
-
-						<IngredientRow
-							items={totals}
-							currency={true}
-							styles={"text-xl font-bold"}
-						/>
+						<div className="w-[400px] md:[420px]">
+							<IngredientRow
+								items={totals}
+								currency={true}
+								styles={"text-xl font-bold"}
+							/>
+						</div>
 					</div>
 				</div>
 			</div>
