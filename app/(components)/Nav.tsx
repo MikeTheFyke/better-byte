@@ -19,7 +19,7 @@ const Nav = async ({ session, userId }: NavProps) => {
 	return (
 		<>
 			<nav className="flex justify-between bg-green-700 p-4">
-				<div className="flex items-center justify-between md:w-[360px]">
+				<div className="flex items-center justify-between w-[100px] smd:w-[360px]">
 					<Link href="/">
 						<FontAwesomeIcon icon={faHouse} className="icon" />
 					</Link>

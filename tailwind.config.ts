@@ -8,6 +8,9 @@ const config: Config = {
 	],
 	theme: {
 		extend: {
+			screens: {
+				smd: "950px",
+			},
 			backgroundImage: {
 				"gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
 				"gradient-conic":
@@ -15,10 +18,11 @@ const config: Config = {
 			},
 			colors: {
 				nav: "#18222f",
-				page: "#2b3441",
+				page: "#f1f5f9",
 				card: "#47566a",
 				"card-hover": "#4f5e74",
 				"default-text": "#f1f3f5",
+				"main-text": "#0f172a",
 				"blue-accent": "#0084d4",
 				"blue-accent-hover": "#009fff",
 			},
