@@ -25,6 +25,7 @@ const StoreTab = ({ store, total, allItems, key }: Props) => {
 	return (
 		<div className={`store-tab ${tabStyles}`} key={key}>
 			${total}
+			{allItems ? null : "*"}
 		</div>
 	);
 };

@@ -11,17 +11,23 @@ const RecipePage = async ({ params }: any) => {
 
 	if (session) {
 		return (
-			<div className="flex justify-center mt-10">
-				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-4">
-					{recipes.map((recipe: Recipe) => {
-						return (
-							<>
-								<RecipeCard recipe={recipe} userId={params.user_id} />
-							</>
-						);
-					})}
+			<>
+				<h1 className="text-black text-center w-full py-2">
+					All prices displaying * indicate stores that do not include all items
+					in recipe.
+				</h1>
+				<div className="flex justify-center mt-8">
+					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-4">
+						{recipes.map((recipe: Recipe) => {
+							return (
+								<>
+									<RecipeCard recipe={recipe} userId={params.user_id} />
+								</>
+							);
+						})}
+					</div>
 				</div>
-			</div>
+			</>
 		);
 	} else {
 		redirect("/api/auth/signin?callbackUrl=/");
