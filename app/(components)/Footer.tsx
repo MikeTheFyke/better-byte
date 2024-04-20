@@ -1,23 +1,59 @@
 /* eslint-disable @next/next/no-async-client-component */
 "use client";
-import { faBook } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import RecipeDialog from "./RecipeDialog";
+import Link from "next/link";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+	faBook,
+	faCirclePlus,
+	faClipboard,
+	faMagnifyingGlass,
+} from "@fortawesome/free-solid-svg-icons";
 
-const Footer = () => {
+interface NavProps {
+	session: any | null;
+	userId: string | undefined;
+}
+
+const Footer = ({ session, userId }: NavProps) => {
 	const [openDialog, setOpenDialog] = useState(false);
 	return (
 		<>
 			{openDialog ? <RecipeDialog setOpenDialog={setOpenDialog} /> : null}
-			<nav className="flex justify-center bg-nav p-4">
+			<nav className="flex justify-between bg-green-700 p-8">
+				<Link
+					href={`/RecipePage/${userId}`}
+					className="flex items-center justify-center"
+				>
+					<FontAwesomeIcon icon={faBook} className="iconFooter" />
+				</Link>
+				<Link
+					href={`/GroceryListPage/${userId}`}
+					className="flex items-center justify-center"
+				>
+					<FontAwesomeIcon icon={faClipboard} className="iconFooter" />
+				</Link>
 				<button
-					className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center"
+					className="mainButton"
 					onClick={() => setOpenDialog(!openDialog)}
 				>
-					<FontAwesomeIcon icon={faBook} className="icon" />
 					<span>Create new Recipe</span>
 				</button>
+				<Link
+					href={`/SearchPage/${userId}`}
+					className="flex items-center justify-center"
+				>
+					<FontAwesomeIcon icon={faMagnifyingGlass} className="iconFooter" />
+				</Link>
+				{session.user.role === "admin" ? (
+					<Link
+						href={`/CreateItemPage/${userId}`}
+						className="flex items-center justify-center"
+					>
+						<FontAwesomeIcon icon={faCirclePlus} className="iconFooter" />
+					</Link>
+				) : null}
 			</nav>
 		</>
 	);

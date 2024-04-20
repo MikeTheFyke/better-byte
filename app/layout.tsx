@@ -36,10 +36,12 @@ const RootLayout = async ({
 }: Readonly<{ children: React.ReactNode }>) => {
 	const { users } = await getUsers();
 	const session = await getServerSession(options);
+
 	const selectedUser = users.filter((user: User) => {
-		return user.email === session.user.email;
+		return user?.email === session?.user?.email;
 	});
-	const userId = selectedUser[0]._id;
+
+	const userId = selectedUser[0] ? selectedUser[0]._id : undefined;
 
 	return (
 		<html lang="en">
@@ -51,7 +53,7 @@ const RootLayout = async ({
 							{children}
 						</div>
 					</AuthProvider>
-					{session ? <Footer /> : null}
+					{session ? <Footer session={session} userId={userId} /> : null}
 				</div>
 			</body>
 		</html>

@@ -4,7 +4,13 @@
 
 @layer components {
 	.icon {
-		@apply text-default-text sm:text-2xl md:text-4xl;
+		@apply text-default-text text-4xl;
+	}
+	.iconHeader {
+		@apply text-default-text text-4xl sm:hidden md:inline-block;
+	}
+	.iconFooter {
+		@apply text-default-text sm:text-4xl sm:inline-block md:hidden;
 	}
 	.btn {
 		@apply hover:no-underline bg-blue-accent hover:bg-blue-accent-hover tracking-wider w-full text-center text-nav font-bold cursor-pointer uppercase px-4 py-2 rounded-md transition-colors block;
@@ -23,5 +29,14 @@
 	}
 	.stripedEnds div:nth-child(even) {
 		@apply bg-slate-500;
+	}
+	.searchInput {
+		@apply bg-gray-50 border border-slate-100 text-green-600 rounded-lg focus:ring-slate-100 focus:border-slate-100 block w-[300px] ps-10 p-2.5 dark:bg-slate-100 dark:border-slate-100 dark:placeholder-green-600 dark:text-green-600 dark:focus:ring-slate-100 dark:focus:border-slate-100 placeholder:text-green-600 placeholder:font-semibold;
+	}
+	.searchButton {
+		@apply text-white font-bold uppercase absolute end-1 bottom-1 bg-green-600 hover:bg-green-800 rounded-lg px-4 py-1 dark:bg-green-600 dark:hover:bg-green-800 mb-0.5;
+	}
+	.mainButton {
+		@apply text-green-600 hover:text-green-800 font-bold uppercase bg-white hover:bg-slate-300 focus:ring-4 focus:outline-none focus:ring-slate-100 rounded-lg px-4 py-2 dark:bg-slate-200 dark:hover:bg-slate-300 dark:focus:ring-slate-200;
 	}
 }
