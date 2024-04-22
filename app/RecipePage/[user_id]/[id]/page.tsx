@@ -1,3 +1,4 @@
+import AddGroceryButton from "@/app/(components)/AddGroceryButton";
 import IngredientGrid from "@/app/(components)/IngredientGrid/IngredientGrid";
 import IngredientRow from "@/app/(components)/IngredientGrid/IngredientRow";
 import { Recipe, getRecipeById } from "@/app/(models)/Recipe";
@@ -16,6 +17,8 @@ const RecipePage = async ({ params }: any) => {
 	});
 
 	const availableLocations = ["Walmart", "Loblaws", "noFrills", "Galleria"];
+
+	console.log("selectedRecipe.ingredients : ", selectedRecipe.ingredients);
 
 	return (
 		<>
@@ -77,7 +80,7 @@ const RecipePage = async ({ params }: any) => {
 					</div>
 				</div>
 			</div>
-			<div className="flex justify-center">
+			<div className="flex justify-center mb-10">
 				<div className="grid grid-cols-[130px_500px] md:grid-cols-[180px_500px] w-[638px] md:w-[688px] justify-center px-[4px] mt-10 border border-1 border-slate-300 drop-shadow-lg drop-shadow-grey-900/10 rounded-xl">
 					{/* Grid start */}
 
@@ -113,10 +116,10 @@ const RecipePage = async ({ params }: any) => {
 						<div className="w-[500px] md:[520px]">
 							<div className="flex justify-center">
 								<div className="grid grid-cols-5 w-[500px] striped">
-									{names.map((ingredient) => {
+									{names.map((ingredient, index) => {
 										return (
 											<>
-												<IngredientGrid name={ingredient} />
+												<IngredientGrid name={ingredient} index={index} />
 											</>
 										);
 									})}
@@ -131,6 +134,9 @@ const RecipePage = async ({ params }: any) => {
 						/>
 					</div>
 				</div>
+			</div>
+			<div className="flex justify-center">
+				<AddGroceryButton names={names} />
 			</div>
 		</>
 	);
