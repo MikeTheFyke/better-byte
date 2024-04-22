@@ -1,35 +1,17 @@
 import {
 	Ingredient,
 	IngredientLocation,
-	findIngredients,
 	getIngredientByName,
 } from "@/app/(models)/Ingredients";
 import React from "react";
 
 interface Props {
 	name: string;
-	names: string[];
 }
 
-const IngredientGrid = async ({ name, names }: Props) => {
-	// let itemsArray: any[] = [];
+const IngredientGrid = async ({ name }: Props) => {
 	const ingredient = await getIngredientByName(name.toUpperCase());
-	// const found = await Promise.all(
-	// 	names.map(async (name) => {
-	// 		findIngredients(name).then((value) => {
-	// 			itemsArray.push(value.foundIngredient);
-	// 			return itemsArray;
-	// 		});
-	// 		return itemsArray;
-	// 	})
-	// );
 	const selectedIngredient: Ingredient = ingredient.foundIngredient;
-	// const ingredients = found;
-
-	// if (selectedIngredient && selectedIngredient.stores) {
-	// 	console.log("Found : ", selectedIngredient);
-	// }
-
 	const currency = "$";
 
 	const displayUnit = selectedIngredient.stores.filter((store) => {
@@ -54,7 +36,7 @@ const IngredientGrid = async ({ name, names }: Props) => {
 					<h1 className="h-[30px] text-l hidden md:block pt-1">
 						{displayUnit[0].unit}
 					</h1>
-					<h1 className="h-[30px] text-l md:hidden pt-1">
+					<h1 className="h-[30px] text-l md:hidden pt-1 pr-1">
 						{displayUnit[0].unit.split(" ")[0]}
 					</h1>
 				</div>

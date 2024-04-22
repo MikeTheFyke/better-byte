@@ -19,16 +19,16 @@
 		@apply flex items-center w-[110px] h-[60px] text-xl font-bold;
 	}
 	.striped div:nth-child(odd) {
-		@apply bg-slate-200;
+		@apply text-green-800;
 	}
 	.striped div:nth-child(even) {
-		@apply bg-slate-400;
+		@apply text-green-800 bg-green-400;
 	}
 	.stripedEnds div:nth-child(odd) {
-		@apply bg-slate-300;
+		@apply text-black bg-green-600;
 	}
 	.stripedEnds div:nth-child(even) {
-		@apply bg-slate-500;
+		@apply text-black bg-green-600;
 	}
 	.searchInput {
 		@apply bg-gray-50 border border-slate-100 text-green-600 rounded-lg focus:ring-slate-100 focus:border-slate-100 block w-[300px] ps-10 p-2.5 dark:bg-slate-100 dark:border-slate-100 dark:placeholder-green-600 dark:text-green-600 dark:focus:ring-slate-100 dark:focus:border-slate-100 placeholder:text-green-600 placeholder:font-semibold;
