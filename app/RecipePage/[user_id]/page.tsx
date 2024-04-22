@@ -12,11 +12,7 @@ const RecipePage = async ({ params }: any) => {
 	if (session) {
 		return (
 			<>
-				<h1 className="text-black text-center w-full py-2">
-					All prices displaying * indicate stores that do not include all items
-					in recipe.
-				</h1>
-				<div className="flex justify-center mt-8">
+				<div className="flex justify-center pt-4">
 					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-4">
 						{recipes.map((recipe: Recipe) => {
 							return (
@@ -27,6 +23,10 @@ const RecipePage = async ({ params }: any) => {
 						})}
 					</div>
 				</div>
+				<h1 className="text-black text-center w-full py-4">
+					All prices displaying * indicate stores that do not include all items
+					in recipe.
+				</h1>
 			</>
 		);
 	} else {

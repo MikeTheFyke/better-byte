@@ -31,12 +31,6 @@ const Nav = async ({ session, userId }: NavProps) => {
 							<Link href={`/GroceryListPage/${userId}`}>
 								<FontAwesomeIcon icon={faClipboard} className="iconHeader" />
 							</Link>
-							<Link href={`/SearchPage/${userId}`}>
-								<FontAwesomeIcon
-									icon={faMagnifyingGlass}
-									className="iconHeader"
-								/>
-							</Link>
 							{session.user.role === "admin" ? (
 								<Link href={`/CreateItemPage/${userId}`}>
 									<FontAwesomeIcon icon={faCirclePlus} className="iconHeader" />
