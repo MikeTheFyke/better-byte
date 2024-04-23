@@ -119,7 +119,7 @@ const CreateItemForm = () => {
 			{itemData.stores.map((store, index) => {
 				return (
 					<div
-						key={store.name}
+						key={index + store.name}
 						className="flex flex-row justify-between w-full mb-6 border-solid border-2 dark:border-gray-600 rounded-md p-4"
 					>
 						<div className="flex items-center w-[200px]">

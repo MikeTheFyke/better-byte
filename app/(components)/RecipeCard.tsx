@@ -39,13 +39,13 @@ const RecipeCard = ({ recipe, userId }: Props) => {
 					backgroundPosition: "center",
 				}}
 			>
-				{recipe.totals.map((store) => {
+				{recipe.totals.map((store, index) => {
 					return (
 						<StoreTab
 							store={store.store}
 							total={store.total}
 							allItems={store.allItems}
-							key={store.store}
+							key={index + store.store}
 						/>
 					);
 				})}

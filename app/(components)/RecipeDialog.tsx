@@ -297,7 +297,7 @@ const RecipeDialog = ({ setOpenDialog }: Props) => {
 									return (
 										<div
 											className="flex flex-row w-full justify-between"
-											key={ingredient.name}
+											key={index + ingredient.name}
 										>
 											<div className="justify-start">
 												<h6 className="block mb-2 font-sans text-base antialiased font-semibold leading-relaxed tracking-normal text-inherit">
@@ -397,7 +397,7 @@ const RecipeDialog = ({ setOpenDialog }: Props) => {
 										return (
 											<div
 												className="flex flex-row w-full justify-between"
-												key={index}
+												key={index + step}
 											>
 												<div className="justify-start">
 													<h6 className="block mb-2 font-sans text-base antialiased font-semibold leading-relaxed tracking-normal text-inherit">

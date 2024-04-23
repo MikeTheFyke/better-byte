@@ -8,10 +8,12 @@ interface Props {
 
 const AddGroceryButton = ({ names }: Props) => {
 	const [addDialogOpen, setAddDialogOpen] = useState(false);
+
 	return (
 		<>
 			{addDialogOpen ? (
 				<AddGroceryDialog
+					names={names}
 					addDialogOpen={addDialogOpen}
 					setAddDialogOpen={setAddDialogOpen}
 				/>

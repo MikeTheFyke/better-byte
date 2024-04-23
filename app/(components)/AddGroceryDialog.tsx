@@ -1,11 +1,26 @@
 import React, { Dispatch, SetStateAction } from "react";
+import AddGroceryIngredientRow from "./AddGroceryIngredientRow";
+import { Ingredient, getIngredientByName } from "../(models)/Ingredients";
+import AddGroceryIngredientGrid from "./AddGroceryIngredientGrid";
 
 interface Props {
+	names: string[];
 	addDialogOpen: boolean;
 	setAddDialogOpen: Dispatch<SetStateAction<boolean>>;
 }
 
-const AddGroceryDialog = ({ addDialogOpen, setAddDialogOpen }: Props) => {
+const AddGroceryDialog = ({
+	names,
+	addDialogOpen,
+	setAddDialogOpen,
+}: Props) => {
+	const ingredientsCheckList = names.map((name) => {
+		return {
+			item: name,
+			checked: true,
+		};
+	});
+
 	return (
 		<div
 			data-dialog-backdrop="register-dialog"
@@ -34,8 +49,22 @@ const AddGroceryDialog = ({ addDialogOpen, setAddDialogOpen }: Props) => {
 
 					<div className="w-full inline-block">
 						<h6 className="font-sans text-2xl antialiased leading-relaxed tracking-normal text-inherit">
-							Let's get you started!
+							The following items will be added to your grocery list.
 						</h6>
+					</div>
+				</div>
+				<div className="striped px-4">
+					<div className="border border-slate-200 rounded py-4">
+						{names.map((name, index) => {
+							return (
+								<AddGroceryIngredientRow
+									key={Math.random()}
+									name={name}
+									index={index}
+									ingredientsCheckList={ingredientsCheckList}
+								/>
+							);
+						})}
 					</div>
 				</div>
 				{/* End of main container */}

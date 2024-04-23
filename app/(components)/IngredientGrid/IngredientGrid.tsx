@@ -12,7 +12,9 @@ interface Props {
 
 const IngredientGrid = async ({ name, index }: Props) => {
 	const ingredient = await getIngredientByName(name.toUpperCase());
-	const selectedIngredient: Ingredient = ingredient.foundIngredient;
+	const selectedIngredient: Ingredient = ingredient
+		? ingredient.foundIngredient
+		: undefined;
 	const currency = "$";
 
 	const displayUnit = selectedIngredient.stores.filter((store) => {
@@ -26,7 +28,10 @@ const IngredientGrid = async ({ name, index }: Props) => {
 			<>
 				{selectedIngredient.stores.map((store: IngredientLocation) => {
 					return (
-						<div key={name + index + "grid"} className="w-[100px] text-center">
+						<div
+							key={"grid" + name + Math.random()}
+							className="w-[100px] text-center"
+						>
 							<h1 className="text-xl h-[30px]">
 								{store.price === 0 ? "N/A" : `${currency}${store.price}`}
 							</h1>
@@ -43,6 +48,8 @@ const IngredientGrid = async ({ name, index }: Props) => {
 				</div>
 			</>
 		);
+	} else {
+		return null;
 	}
 };
 
