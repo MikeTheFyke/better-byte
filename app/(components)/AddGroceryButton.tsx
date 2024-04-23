@@ -1,12 +1,14 @@
 "use client";
 import { useState } from "react";
 import AddGroceryDialog from "./AddGroceryDialog";
+import { RecipeIngredient } from "../(models)/Recipe";
 
 interface Props {
 	names: string[];
+	recipeIngredients: RecipeIngredient[];
 }
 
-const AddGroceryButton = ({ names }: Props) => {
+const AddGroceryButton = ({ names, recipeIngredients }: Props) => {
 	const [addDialogOpen, setAddDialogOpen] = useState(false);
 
 	return (
@@ -14,6 +16,7 @@ const AddGroceryButton = ({ names }: Props) => {
 			{addDialogOpen ? (
 				<AddGroceryDialog
 					names={names}
+					recipeIngredients={recipeIngredients}
 					addDialogOpen={addDialogOpen}
 					setAddDialogOpen={setAddDialogOpen}
 				/>

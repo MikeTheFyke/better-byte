@@ -8,6 +8,13 @@ export type RecipeIngredient = {
 	name: string;
 	quantity: string;
 	unit: string;
+	stores: Array<RecipeIngredientLocation>;
+};
+
+export type RecipeIngredientLocation = {
+	name: string;
+	price: number;
+	unit: string;
 };
 
 export type Recipe = {

@@ -1,15 +1,18 @@
 "use client";
 import React, { Dispatch, SetStateAction, useState } from "react";
 import { Ingredient, getIngredientByName } from "../(models)/Ingredients";
+import { RecipeIngredient } from "../(models)/Recipe";
 
 interface Props {
 	names: string[];
+	recipeIngredients: RecipeIngredient[];
 	addDialogOpen: boolean;
 	setAddDialogOpen: Dispatch<SetStateAction<boolean>>;
 }
 
 const AddGroceryDialog = ({
 	names,
+	recipeIngredients,
 	addDialogOpen,
 	setAddDialogOpen,
 }: Props) => {
@@ -19,9 +22,10 @@ const AddGroceryDialog = ({
 		console.log("itemData : ", itemData);
 	};
 
-	const ingredientsCheckList = names.map((name) => {
+	const ingredientsCheckList = recipeIngredients.map((ingredient) => {
 		return {
-			item: name,
+			item: ingredient.name,
+			stores: ingredient.stores,
 			checked: true,
 		};
 	});

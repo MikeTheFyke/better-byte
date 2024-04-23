@@ -1,6 +1,7 @@
 import AddGroceryButton from "@/app/(components)/AddGroceryButton";
 import IngredientGrid from "@/app/(components)/IngredientGrid/IngredientGrid";
 import IngredientRow from "@/app/(components)/IngredientGrid/IngredientRow";
+import { availableLocations } from "@/app/(models)/Ingredients";
 import { Recipe, getRecipeById } from "@/app/(models)/Recipe";
 
 const RecipePage = async ({ params }: any) => {
@@ -15,10 +16,6 @@ const RecipePage = async ({ params }: any) => {
 	const totals = selectedRecipe.totals.map((item) => {
 		return item.total;
 	});
-
-	const availableLocations = ["Walmart", "Loblaws", "noFrills", "Galleria"];
-
-	console.log("selectedRecipe.ingredients : ", selectedRecipe.ingredients);
 
 	return (
 		<>
@@ -136,7 +133,10 @@ const RecipePage = async ({ params }: any) => {
 				</div>
 			</div>
 			<div className="flex justify-center">
-				<AddGroceryButton names={names} />
+				<AddGroceryButton
+					names={names}
+					recipeIngredients={selectedRecipe.ingredients}
+				/>
 			</div>
 		</>
 	);

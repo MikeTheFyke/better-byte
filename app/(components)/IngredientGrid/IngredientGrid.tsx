@@ -33,7 +33,9 @@ const IngredientGrid = async ({ name, index }: Props) => {
 							className="w-[100px] text-center"
 						>
 							<h1 className="text-xl h-[30px]">
-								{store.price === 0 ? "N/A" : `${currency}${store.price}`}
+								{store.price === 0
+									? "N/A"
+									: `${currency}${store.price.toFixed(2)}`}
 							</h1>
 						</div>
 					);
