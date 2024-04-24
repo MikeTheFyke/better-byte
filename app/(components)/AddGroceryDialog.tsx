@@ -32,7 +32,7 @@ const AddGroceryDialog = ({
 
 	const boxChecked = (id: string) => {
 		let updatedItems = itemData.map((ingredient) => {
-			if (ingredient.item === id) {
+			if (ingredient.item.toUpperCase() === id) {
 				return { ...ingredient, checked: !ingredient.checked };
 			}
 			return ingredient;
@@ -79,17 +79,20 @@ const AddGroceryDialog = ({
 						<div className="border border-slate-200 rounded py-4">
 							{names.map((name, index) => {
 								return (
-									<div key={Math.random()} className="w-full px-4">
+									<div
+										key={Math.random()}
+										className="w-full h-[34px] px-4 py-[3px] inline-block align-middle"
+									>
 										<input
 											id={name}
 											type="checkbox"
 											name="bordered-checkbox"
 											value="name"
 											checked={itemData[index].checked}
-											className="w-6 h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+											className="w-5 h-5 text-green-600 bg-gray-100 border-gray-300 rounded focus:ring-green-600 dark:focus:ring-green-600 accent-green-800"
 											onChange={() => boxChecked(name)}
 										/>
-										<label className="w-full py-4 ms-2 text-2xl font-medium text-gray-900 dark:text-gray-300">
+										<label className="w-full h-[34px] py-4 ms-2 text-2xl font-medium text-black">
 											{name}
 										</label>
 									</div>
@@ -97,7 +100,7 @@ const AddGroceryDialog = ({
 							})}
 						</div>
 					</div>
-					<div className="flex justify-between px-4 mb-4">
+					<div className="flex justify-between px-4 my-4">
 						<input
 							type="button"
 							value="Cancel"
