@@ -57,10 +57,10 @@ const AddGroceryDialog = ({
 					{/* Header */}
 					<div className="flex flex-row justify-between">
 						<h4 className="block font-sans text-2xl antialiased font-semibold leading-snug tracking-normal text-blue-gray-900">
-							Add recipe to grocery list
+							Add items to your grocery list
 						</h4>
 						<h4
-							className="block font-sans text-2xl antialiased font-semibold leading-snug tracking-normal text-blue-gray-900 cursor-pointer"
+							className="block font-sans text-2xl antialiased font-bold leading-snug tracking-normal text-blue-gray-900 cursor-pointer"
 							onClick={() => setAddDialogOpen(!addDialogOpen)}
 						>
 							X
