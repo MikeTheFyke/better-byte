@@ -5,10 +5,11 @@ import { RecipeIngredient } from "../(models)/Recipe";
 
 interface Props {
 	names: string[];
+	userId: string;
 	recipeIngredients: RecipeIngredient[];
 }
 
-const AddGroceryButton = ({ names, recipeIngredients }: Props) => {
+const AddGroceryButton = ({ names, userId, recipeIngredients }: Props) => {
 	const [addDialogOpen, setAddDialogOpen] = useState(false);
 
 	return (
@@ -16,6 +17,7 @@ const AddGroceryButton = ({ names, recipeIngredients }: Props) => {
 			{addDialogOpen ? (
 				<AddGroceryDialog
 					names={names}
+					userId={userId}
 					recipeIngredients={recipeIngredients}
 					addDialogOpen={addDialogOpen}
 					setAddDialogOpen={setAddDialogOpen}

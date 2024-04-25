@@ -6,6 +6,8 @@ import { Recipe, getRecipeById } from "@/app/(models)/Recipe";
 
 const RecipePage = async ({ params }: any) => {
 	const recipeId = params.id;
+	const userId = params.user_id;
+
 	const recipes = await getRecipeById(recipeId);
 	const selectedRecipe: Recipe = recipes.foundRecipe;
 
@@ -134,6 +136,7 @@ const RecipePage = async ({ params }: any) => {
 			</div>
 			<div className="flex justify-center">
 				<AddGroceryButton
+					userId={userId}
 					names={names}
 					recipeIngredients={selectedRecipe.ingredients}
 				/>

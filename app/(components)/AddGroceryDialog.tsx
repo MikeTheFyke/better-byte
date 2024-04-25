@@ -5,6 +5,7 @@ import { RecipeIngredient } from "../(models)/Recipe";
 
 interface Props {
 	names: string[];
+	userId: string;
 	recipeIngredients: RecipeIngredient[];
 	addDialogOpen: boolean;
 	setAddDialogOpen: Dispatch<SetStateAction<boolean>>;
@@ -12,6 +13,7 @@ interface Props {
 
 const AddGroceryDialog = ({
 	names,
+	userId,
 	recipeIngredients,
 	addDialogOpen,
 	setAddDialogOpen,
@@ -19,37 +21,100 @@ const AddGroceryDialog = ({
 	//
 	const handleSubmit = async (e: any) => {
 		e.preventDefault();
-		console.log("itemData : ", itemData);
+		const formData = {
+			id: userId,
+			items: {
+				itemData,
+			},
+		};
+		console.log("formData : ", formData);
 	};
 
 	const ingredientsCheckList = recipeIngredients.map((ingredient) => {
 		return {
 			item: ingredient.name,
+			quantity: 1,
 			stores: ingredient.stores,
 			checked: true,
 		};
 	});
 
-	const boxChecked = (id: string) => {
-		let updatedItems = itemData.map((ingredient) => {
-			if (ingredient.item.toUpperCase() === id) {
-				return { ...ingredient, checked: !ingredient.checked };
+	const handleChange = (
+		e: React.ChangeEvent<HTMLInputElement>,
+		name: string
+	) => {
+		let value = e.target.value;
+
+		let updatedQuantity = itemData.map((ingredient) => {
+			if (ingredient.item.toUpperCase() === name) {
+				return { ...ingredient, quantity: value as unknown as number };
 			}
 			return ingredient;
 		});
-		setItemData(updatedItems);
+
+		let updatedPrices = updatedQuantity.map((ingredient, index) => {
+			if (ingredient.item.toUpperCase() === name) {
+				const ingredientIndex = index;
+				let test = ingredient.stores.map((store: any, index) => {
+					const storeIndex = index;
+					const originalPrice =
+						ingredientsCheckList[ingredientIndex].stores[storeIndex].price;
+					return {
+						...store,
+						price: ingredient.quantity * originalPrice,
+					};
+				});
+				return { ...ingredient, stores: test };
+			}
+			return ingredient;
+		});
+
+		setItemData(updatedPrices);
+	};
+
+	const boxChecked = (id: string) => {
+		let updatedItems = itemData.map((ingredient) => {
+			if (ingredient.item.toUpperCase() === id) {
+				const newQuantity = ingredient.checked ? 0 : 1;
+				return {
+					...ingredient,
+					checked: !ingredient.checked,
+					quantity: newQuantity,
+				};
+			}
+			return ingredient;
+		});
+
+		let updatedPrices = updatedItems.map((ingredient, index) => {
+			if (ingredient.item.toUpperCase() === id) {
+				const ingredientIndex = index;
+				let test = ingredient.stores.map((store: any, index) => {
+					const storeIndex = index;
+					const originalPrice =
+						ingredientsCheckList[ingredientIndex].stores[storeIndex].price;
+					return {
+						...store,
+						price: ingredient.quantity * originalPrice,
+					};
+				});
+				return { ...ingredient, stores: test };
+			}
+			return ingredient;
+		});
+
+		setItemData(updatedPrices);
 	};
 
 	const [itemData, setItemData] = useState(ingredientsCheckList);
 
 	return (
 		<div
-			data-dialog-backdrop="register-dialog"
+			data-dialog-backdrop="add-grocery-dialog"
 			data-dialog-backdrop-close="true"
 			className="fixed top-0 left-o -inset-4 z-[999] grid h-screen w-screen place-items-center bg-black bg-opacity-60 backdrop-blur-sm transition-opacity duration-300"
 		>
 			<div
-				data-dialog="register-dialog"
+				data-dialog="add-grocery-dialog"
 				className="relative mx-auto flex w-full max-w-[32rem] flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-md"
 			>
 				{/* Main container */}
@@ -81,20 +146,31 @@ const AddGroceryDialog = ({
 								return (
 									<div
 										key={Math.random()}
-										className="w-full h-[34px] px-4 py-[3px] inline-block align-middle"
+										className="w-full h-[34px] px-2 py-[3px]"
 									>
-										<input
-											id={name}
-											type="checkbox"
-											name="bordered-checkbox"
-											value="name"
-											checked={itemData[index].checked}
-											className="w-5 h-5 text-green-600 bg-gray-100 border-gray-300 rounded focus:ring-green-600 dark:focus:ring-green-600 accent-green-800"
-											onChange={() => boxChecked(name)}
-										/>
 										<label className="w-full h-[34px] py-4 ms-2 text-2xl font-medium text-black">
+											<input
+												id={name}
+												type="checkbox"
+												name="bordered-checkbox"
+												value="name"
+												checked={
+													itemData[index].checked &&
+													itemData[index].quantity > 0
+												}
+												className="w-5 h-5 text-green-600 bg-gray-100 border-gray-300 rounded focus:ring-green-600 dark:focus:ring-green-600 accent-green-800"
+												onChange={() => boxChecked(name)}
+											/>
 											{name}
 										</label>
+										<input
+											id={name + index}
+											name="quantity"
+											type="number"
+											onChange={(e) => handleChange(e, name)}
+											value={itemData[index].quantity}
+											className="w-[40px] h-[26px] text-gray-900 text-sm border-green-600 rounded"
+										/>
 									</div>
 								);
 							})}
