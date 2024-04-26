@@ -7,8 +7,6 @@ export async function POST(req) {
 		const IngredientData = body.formData;
 		await Ingredient.create(IngredientData);
 
-		console.log("IngredientData : ", IngredientData);
-
 		return NextResponse.json(
 			{ message: "Ingredient Created" },
 			{ status: 201 }

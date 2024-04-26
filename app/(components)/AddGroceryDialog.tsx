@@ -3,6 +3,7 @@ import React, { Dispatch, SetStateAction, useState } from "react";
 import { Ingredient, getIngredientByName } from "../(models)/Ingredients";
 import { RecipeIngredient } from "../(models)/Recipe";
 import { GroceryList } from "../(models)/GroceryLists";
+import { useRouter } from "next/navigation";
 
 interface Props {
 	names: string[];
@@ -21,6 +22,8 @@ const AddGroceryDialog = ({
 	addDialogOpen,
 	setAddDialogOpen,
 }: Props) => {
+	const router = useRouter();
+
 	const handleSubmit = async (e: any) => {
 		e.preventDefault();
 		const formData = {
@@ -34,6 +37,18 @@ const AddGroceryDialog = ({
 			console.log("Previous Grocery List detected");
 		} else {
 			console.log("No Previous Grocery List detected");
+
+			const res = await fetch("/api/GroceryLists", {
+				method: "POST",
+				body: JSON.stringify({ formData }),
+				"content-type": "applciation/json",
+			});
+
+			if (!res.ok) {
+				throw new Error("Failed to create Recipe.");
+			}
+			router.refresh();
+			setAddDialogOpen(false);
 		}
 		console.log("formData : ", formData);
 	};
@@ -119,7 +134,7 @@ const AddGroceryDialog = ({
 		<div
 			data-dialog-backdrop="add-grocery-dialog"
 			data-dialog-backdrop-close="true"
-			className="fixed top-0 left-o -inset-4 z-[999] grid h-screen w-screen place-items-center bg-black bg-opacity-60 backdrop-blur-sm transition-opacity duration-300"
+			className="fixed top-0 left-o z-[999] grid h-screen w-screen place-items-center bg-black bg-opacity-60 backdrop-blur-sm transition-opacity duration-300"
 		>
 			<div
 				data-dialog="add-grocery-dialog"
@@ -154,9 +169,9 @@ const AddGroceryDialog = ({
 								return (
 									<div
 										key={Math.random()}
-										className="w-full h-[34px] px-2 py-[3px]"
+										className="w-full h-[34px] px-2 py-[3px] flex justify-between"
 									>
-										<label className="w-full h-[34px] py-4 ms-2 text-2xl font-medium text-black">
+										<div>
 											<input
 												id={name}
 												type="checkbox"
@@ -169,15 +184,17 @@ const AddGroceryDialog = ({
 												className="w-5 h-5 text-green-600 bg-gray-100 border-gray-300 rounded focus:ring-green-600 dark:focus:ring-green-600 accent-green-800"
 												onChange={() => boxChecked(name)}
 											/>
-											{name}
-										</label>
+											<label className="w-full h-[34px] py-4 ms-2 text-2xl font-medium text-black">
+												{name}
+											</label>
+										</div>
 										<input
 											id={name + index}
 											name="quantity"
 											type="number"
 											onChange={(e) => handleChange(e, name)}
 											value={itemData[index].quantity}
-											className="w-[40px] h-[26px] text-gray-900 text-sm border-green-600 rounded"
+											className="w-[40px] h-[25px] text-gray-900 text-2xl border border-green-600 rounded focus:ring-transparent mt-[1px] [&::-webkit-inner-spin-button]:appearance-none text-center"
 										/>
 									</div>
 								);

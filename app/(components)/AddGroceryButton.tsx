@@ -35,7 +35,7 @@ const AddGroceryButton = ({
 				type="button"
 				value="Add to grocery list"
 				onClick={() => setAddDialogOpen(true)}
-				className="w-full md:w-[300px] bg-green-600 text-white uppercase text-2xl font-bold rounded py-2 cursor-pointer"
+				className="w-full md:w-[300px] bg-green-600 text-white uppercase text-2xl font-bold rounded py-2 mx-4 cursor-pointer"
 			/>
 		</>
 	);

@@ -13,3 +13,19 @@ export async function GET(req, { params }) {
 		return NextResponse.json({ message: "Error", error }, { status: 500 });
 	}
 }
+
+// Create Grocery List
+export async function POST(req) {
+	try {
+		const body = await req.json();
+		const groceryListData = body.formData;
+		await GroceryLists.create(groceryListData);
+
+		return NextResponse.json(
+			{ message: "Grocerylist Created" },
+			{ status: 201 }
+		);
+	} catch (error) {
+		return NextResponse.json({ message: "Error", error }, { status: 500 });
+	}
+}
