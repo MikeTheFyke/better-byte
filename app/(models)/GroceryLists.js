@@ -3,9 +3,9 @@ import mongoose, { Schema } from "mongoose";
 mongoose.connect(process.env.MONGODB_URI);
 mongoose.Promise = global.Promise;
 
-const groceryListsSchema = new Schema(
+const groceryListSchema = new Schema(
 	{
-		id: String,
+		userId: String,
 		items: {
 			itemData: [
 				{
@@ -21,7 +21,7 @@ const groceryListsSchema = new Schema(
 	}
 );
 
-const GroceryLists =
+const GroceryList =
 	mongoose.models.GroceryLists ||
-	mongoose.model("GroceryLists", groceryListsSchema);
-export default GroceryLists;
+	mongoose.model("GroceryLists", groceryListSchema);
+export default GroceryList;

@@ -2,7 +2,7 @@
 import { useState } from "react";
 import AddGroceryDialog from "./AddGroceryDialog";
 import { RecipeIngredient } from "../(models)/Recipe";
-import { GroceryList } from "../(models)/GroceryLists";
+import { GroceryList } from "../(models)/GroceryList";
 
 interface Props {
 	names: string[];

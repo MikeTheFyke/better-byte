@@ -1,7 +1,7 @@
 import AddGroceryButton from "@/app/(components)/AddGroceryButton";
 import IngredientGrid from "@/app/(components)/IngredientGrid/IngredientGrid";
 import IngredientRow from "@/app/(components)/IngredientGrid/IngredientRow";
-import { GroceryList, getGroceryListsById } from "@/app/(models)/GroceryLists";
+import { GroceryList, getGroceryListsById } from "@/app/(models)/GroceryList";
 
 import { availableLocations } from "@/app/(models)/Ingredients";
 import { Recipe, getRecipeById } from "@/app/(models)/Recipe";

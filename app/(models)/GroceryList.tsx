@@ -1,5 +1,5 @@
 export type GroceryList = {
-	id: String;
+	userId: String;
 	items: GroceryListItem;
 };
 
@@ -9,6 +9,7 @@ export type GroceryListItem = {
 
 export type GroceryStoreItemData = {
 	item: String;
+	checked: Boolean;
 	quantity: number;
 	stores: Array<GroceryStorePriceData>;
 };
@@ -19,12 +20,14 @@ export type GroceryStorePriceData = {
 	unit: String;
 };
 
-export const getGroceryListsById = async (id: string) => {
-	console.log("ID : ", id);
+export const getGroceryListsById = async (userId: string) => {
 	try {
-		const res = await fetch(`http://localhost:3000/api/GroceryLists/${id}`, {
-			cache: "no-store",
-		});
+		const res = await fetch(
+			`http://localhost:3000/api/GroceryLists/${userId}`,
+			{
+				cache: "no-store",
+			}
+		);
 
 		if (!res.ok) {
 			throw new Error("Failed to get grocery list.");

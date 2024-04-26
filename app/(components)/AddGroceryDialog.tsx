@@ -2,7 +2,7 @@
 import React, { Dispatch, SetStateAction, useState } from "react";
 import { Ingredient, getIngredientByName } from "../(models)/Ingredients";
 import { RecipeIngredient } from "../(models)/Recipe";
-import { GroceryList } from "../(models)/GroceryLists";
+import { GroceryList } from "../(models)/GroceryList";
 import { useRouter } from "next/navigation";
 
 interface Props {
@@ -25,9 +25,10 @@ const AddGroceryDialog = ({
 	const router = useRouter();
 
 	const handleSubmit = async (e: any) => {
+		console.log("userId : ", userId);
 		e.preventDefault();
 		const formData = {
-			id: userId,
+			userId: userId,
 			items: {
 				itemData,
 			},
@@ -45,10 +46,12 @@ const AddGroceryDialog = ({
 			});
 
 			if (!res.ok) {
-				throw new Error("Failed to create Recipe.");
+				throw new Error("Failed to add to grocery list.");
+			} else {
+				router.refresh();
+				setItemData(ingredientsCheckList);
+				setAddDialogOpen(false);
 			}
-			router.refresh();
-			setAddDialogOpen(false);
 		}
 		console.log("formData : ", formData);
 	};
