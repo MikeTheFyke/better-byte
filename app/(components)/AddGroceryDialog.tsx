@@ -2,11 +2,13 @@
 import React, { Dispatch, SetStateAction, useState } from "react";
 import { Ingredient, getIngredientByName } from "../(models)/Ingredients";
 import { RecipeIngredient } from "../(models)/Recipe";
+import { GroceryList } from "../(models)/GroceryLists";
 
 interface Props {
 	names: string[];
 	userId: string;
 	recipeIngredients: RecipeIngredient[];
+	selectedGroceryList: GroceryList | undefined;
 	addDialogOpen: boolean;
 	setAddDialogOpen: Dispatch<SetStateAction<boolean>>;
 }
@@ -15,10 +17,10 @@ const AddGroceryDialog = ({
 	names,
 	userId,
 	recipeIngredients,
+	selectedGroceryList,
 	addDialogOpen,
 	setAddDialogOpen,
 }: Props) => {
-	//
 	const handleSubmit = async (e: any) => {
 		e.preventDefault();
 		const formData = {
@@ -27,6 +29,12 @@ const AddGroceryDialog = ({
 				itemData,
 			},
 		};
+
+		if (selectedGroceryList) {
+			console.log("Previous Grocery List detected");
+		} else {
+			console.log("No Previous Grocery List detected");
+		}
 		console.log("formData : ", formData);
 	};
 

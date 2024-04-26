@@ -2,14 +2,21 @@
 import { useState } from "react";
 import AddGroceryDialog from "./AddGroceryDialog";
 import { RecipeIngredient } from "../(models)/Recipe";
+import { GroceryList } from "../(models)/GroceryLists";
 
 interface Props {
 	names: string[];
 	userId: string;
 	recipeIngredients: RecipeIngredient[];
+	selectedGroceryList: GroceryList | undefined;
 }
 
-const AddGroceryButton = ({ names, userId, recipeIngredients }: Props) => {
+const AddGroceryButton = ({
+	names,
+	userId,
+	recipeIngredients,
+	selectedGroceryList,
+}: Props) => {
 	const [addDialogOpen, setAddDialogOpen] = useState(false);
 
 	return (
@@ -19,6 +26,7 @@ const AddGroceryButton = ({ names, userId, recipeIngredients }: Props) => {
 					names={names}
 					userId={userId}
 					recipeIngredients={recipeIngredients}
+					selectedGroceryList={selectedGroceryList}
 					addDialogOpen={addDialogOpen}
 					setAddDialogOpen={setAddDialogOpen}
 				/>

@@ -1,6 +1,8 @@
 import AddGroceryButton from "@/app/(components)/AddGroceryButton";
 import IngredientGrid from "@/app/(components)/IngredientGrid/IngredientGrid";
 import IngredientRow from "@/app/(components)/IngredientGrid/IngredientRow";
+import { GroceryList, getGroceryListsById } from "@/app/(models)/GroceryLists";
+
 import { availableLocations } from "@/app/(models)/Ingredients";
 import { Recipe, getRecipeById } from "@/app/(models)/Recipe";
 
@@ -9,7 +11,11 @@ const RecipePage = async ({ params }: any) => {
 	const userId = params.user_id;
 
 	const recipes = await getRecipeById(recipeId);
+	const groceryLists = await getGroceryListsById(userId);
 	const selectedRecipe: Recipe = recipes.foundRecipe;
+	const selectedGroceryList: GroceryList | undefined = groceryLists
+		? groceryLists.foundGroceryLists
+		: undefined;
 
 	const names = selectedRecipe.ingredients.map((ingredient) => {
 		return ingredient.name.toUpperCase();
@@ -139,6 +145,7 @@ const RecipePage = async ({ params }: any) => {
 					userId={userId}
 					names={names}
 					recipeIngredients={selectedRecipe.ingredients}
+					selectedGroceryList={selectedGroceryList}
 				/>
 			</div>
 		</>
