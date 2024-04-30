@@ -1,6 +1,5 @@
 "use client";
 import React, { Dispatch, SetStateAction, useState } from "react";
-import { Ingredient, getIngredientByName } from "../(models)/Ingredients";
 import { RecipeIngredient } from "../(models)/Recipe";
 import { GroceryList } from "../(models)/GroceryList";
 import { useRouter } from "next/navigation";
@@ -25,19 +24,75 @@ const AddGroceryDialog = ({
 	const router = useRouter();
 
 	const handleSubmit = async (e: any) => {
-		console.log("userId : ", userId);
 		e.preventDefault();
-		const formData = {
-			userId: userId,
-			items: {
-				itemData,
-			},
-		};
+
+		itemData.map((item, index) => {
+			if (item.quantity === 0) {
+				itemData.splice(index, 1);
+			}
+		});
 
 		if (selectedGroceryList) {
-			console.log("Previous Grocery List detected");
-		} else {
+			const updatedList = [
+				...ingredientsCheckList,
+				...selectedGroceryList.items.itemData,
+			];
+
+			const itemData = Object.values(
+				updatedList.reduce((value, object) => {
+					if (value[object.item]) {
+						value[object.item].quantity += object.quantity;
+						// value[object.item].quantity++;
+					} else {
+						value[object.item] = { ...object, quantity: 1 };
+					}
+					return value;
+				}, {})
+			);
+
+			const formData = {
+				userId: userId,
+				items: {
+					itemData,
+				},
+			};
+
+			const res = await fetch(`/api/GroceryLists/${selectedGroceryList._id!}`, {
+				method: "PUT",
+				body: JSON.stringify({ formData }),
+				"content-type": "applciation/json",
+			});
+
+			if (!res.ok) {
+				throw new Error("Failed to add to grocery list.");
+			} else {
+				router.refresh();
+				setItemData(ingredientsCheckList);
+				setAddDialogOpen(false);
+			}
+
+			// const updatedIngredients = updatedQuantity.concat(newIngredients);
+
+			// const ingredientList = updatedIngredients
+			// 	.reverse()
+			// 	.map(({ item }) => item);
+			// const finalList = updatedIngredients.filter(
+			// 	({ item }, index) => !ingredientList.includes(item, index + 1)
+			// );
+
+			// console.log("ingredientList : ", ingredientList);
+			// console.log("finalList : ", finalList);
+			// console.log("updatedQuantity : ", updatedQuantity);
+			// console.log("updatedIngredients : ", updatedIngredients);
+		} else if (!selectedGroceryList) {
 			console.log("No Previous Grocery List detected");
+
+			const formData = {
+				userId: userId,
+				items: {
+					itemData,
+				},
+			};
 
 			const res = await fetch("/api/GroceryLists", {
 				method: "POST",
@@ -53,7 +108,6 @@ const AddGroceryDialog = ({
 				setAddDialogOpen(false);
 			}
 		}
-		console.log("formData : ", formData);
 	};
 
 	const ingredientsCheckList = recipeIngredients.map((ingredient) => {
@@ -69,11 +123,11 @@ const AddGroceryDialog = ({
 		e: React.ChangeEvent<HTMLInputElement>,
 		name: string
 	) => {
-		let value = e.target.value;
+		let value = parseInt(e.target.value);
 
 		let updatedQuantity = itemData.map((ingredient) => {
 			if (ingredient.item.toUpperCase() === name) {
-				return { ...ingredient, quantity: value as unknown as number };
+				return { ...ingredient, quantity: value };
 			}
 			return ingredient;
 		});
@@ -131,7 +185,11 @@ const AddGroceryDialog = ({
 		setItemData(updatedPrices);
 	};
 
+	const [existingList, setExistingList] = useState(selectedGroceryList);
 	const [itemData, setItemData] = useState(ingredientsCheckList);
+
+	// console.log("ItemData : ", itemData);
+	// console.log("selectedGroceryList : ", selectedGroceryList?.items.itemData);
 
 	return (
 		<div
@@ -198,6 +256,7 @@ const AddGroceryDialog = ({
 											onChange={(e) => handleChange(e, name)}
 											value={itemData[index].quantity}
 											className="w-[40px] h-[25px] text-gray-900 text-2xl border border-green-600 rounded focus:ring-transparent mt-[1px] [&::-webkit-inner-spin-button]:appearance-none text-center"
+											autoComplete="off"
 										/>
 									</div>
 								);
