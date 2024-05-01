@@ -1,9 +1,8 @@
+import GroceryGridIngredients from "@/app/(components)/GroceryGrid/GroceryGridIngredients";
 import { GroceryList, getGroceryListsById } from "@/app/(models)/GroceryList";
 
 const GroceryListPage = async ({ params }: any) => {
 	const userId = params.user_id;
-	const currency = "$";
-
 	const groceryLists = await getGroceryListsById(userId);
 	const selectedGroceryList: GroceryList | undefined = groceryLists
 		? groceryLists.foundGroceryLists
@@ -62,38 +61,12 @@ const GroceryListPage = async ({ params }: any) => {
 								);
 							})}
 						</div>
-						{selectedGroceryList.items.itemData.map((ingredient) => {
-							return (
-								<>
-									<div
-										key={Math.random()}
-										className="inline-flex justify-between striped"
-									>
-										<div className="w-[200px] pl-[8px]">{ingredient.item}</div>
-										<div key={Math.random()} className="w-[100px] text-center">
-											{ingredient.quantity}
-										</div>
-										{ingredient.stores.map((store) => {
-											return (
-												<>
-													<div
-														key={Math.random()}
-														className="w-[100px] text-center"
-													>
-														{store.price > 0
-															? `${currency}${store.price.toFixed(2)}`
-															: "N/A"}
-													</div>
-												</>
-											);
-										})}
-									</div>
-								</>
-							);
-						})}
+						<GroceryGridIngredients
+							ingredientsList={selectedGroceryList.items.itemData}
+						/>
 						<div
 							key={Math.random()}
-							className="inline-flex justify-between font-bold striped mt-[8px] border border-1 border-slate-300 drop-shadow-lg drop-shadow-grey-900/10 rounded"
+							className="inline-flex justify-between font-bold groceryGridStriped mt-[8px] border border-1 border-slate-300 drop-shadow-lg drop-shadow-grey-900/10 rounded"
 						>
 							<div className="w-[200px] pl-[8px]">Totals</div>
 							<div className="w-[100px] pl-[8px]"></div>

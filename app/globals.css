@@ -51,6 +51,15 @@
 	.galleriaStyles {
 		@apply bg-[#59AD40] text-white;
 	}
+	.mainGridStyles {
+		@apply bg-transparent text-black;
+	}
+	.groceryGridStriped div:nth-child(1) {
+		@apply mainGridStyles;
+	}
+	.groceryGridStriped div:nth-child(2) {
+		@apply mainGridStyles;
+	}
 	.groceryGridStriped div:nth-child(3) {
 		@apply walmartStyles;
 	}
