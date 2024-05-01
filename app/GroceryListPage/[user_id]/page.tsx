@@ -9,73 +9,55 @@ const GroceryListPage = async ({ params }: any) => {
 		? groceryLists.foundGroceryLists
 		: undefined;
 
-	console.log("selectedGroceryList : ", selectedGroceryList);
-
 	const mappedStores = selectedGroceryList?.items.itemData
 		.map((item) => {
 			return item.stores;
 		})
 		.flat(1);
 
-	const walmartPrices = mappedStores
-		?.map((store) => {
-			if (store.name === "Walmart") {
-				return store.price;
-			}
-			return;
-		})
-		.filter((item) => item !== undefined)
-		.reduce(function (a, b) {
-			return a + b;
-		});
+	const storePriceCalculator = (id: string) =>
+		mappedStores
+			?.map((store) => {
+				if (store.name === id) {
+					return store.price;
+				}
+				return;
+			})
+			.filter((item) => item !== undefined)
+			.reduce(function (a, b) {
+				return a + b;
+			});
 
-	const loblawsPrices = mappedStores
-		?.map((store) => {
-			if (store.name === "Loblaws") {
-				return store.price;
-			}
-			return;
-		})
-		.filter((item) => item !== undefined)
-		.reduce(function (a, b) {
-			return a + b;
-		});
+	const storeTotals = [
+		storePriceCalculator("Walmart"),
+		storePriceCalculator("Loblaws"),
+		storePriceCalculator("noFrills"),
+		storePriceCalculator("Galleria"),
+	];
 
-	const noFrillsPrices = mappedStores
-		?.map((store) => {
-			if (store.name === "noFrills") {
-				return store.price;
-			}
-			return;
-		})
-		.filter((item) => item !== undefined)
-		.reduce(function (a, b) {
-			return a + b;
-		});
-
-	const galleriaPrices = mappedStores
-		?.map((store) => {
-			if (store.name === "Galleria") {
-				return store.price;
-			}
-			return;
-		})
-		.filter((item) => item !== undefined)
-		.reduce(function (a, b) {
-			return a + b;
-		});
+	const storeGridHeader = ["Walmart", "Loblaws", "noFrills", "Galleria"];
 
 	console.log("Mapped : ", mappedStores);
-	console.log("walmartPrices : ", walmartPrices);
-	console.log("loblawsPrices : ", loblawsPrices);
-	console.log("noFrillsPrices : ", noFrillsPrices);
-	console.log("galleriaPrices : ", galleriaPrices);
+	console.log("Totals : ", storeTotals);
 
 	if (selectedGroceryList) {
 		return (
 			<div className="p-[20px]">
 				<div className="border border-1 border-slate-300 drop-shadow-lg drop-shadow-grey-900/10 rounded py-[20px]">
 					<div className="w-full grid grid-row-5">
+						<div
+							key={Math.random()}
+							className="inline-flex justify-between font-bold striped"
+						>
+							<div className="w-[200px] pl-[8px]">Ingredients</div>
+							{storeGridHeader.map((store) => {
+								return (
+									<div key={Math.random()} className="w-[100px] text-center">
+										{store}
+									</div>
+								);
+							})}
+						</div>
 						{selectedGroceryList.items.itemData.map((ingredient) => {
 							return (
 								<>
@@ -83,7 +65,7 @@ const GroceryListPage = async ({ params }: any) => {
 										key={Math.random()}
 										className="inline-flex justify-between striped"
 									>
-										<div className="w-[200px]">{ingredient.item}</div>
+										<div className="w-[200px] pl-[8px]">{ingredient.item}</div>
 										{ingredient.stores.map((store) => {
 											return (
 												<>
@@ -102,6 +84,19 @@ const GroceryListPage = async ({ params }: any) => {
 								</>
 							);
 						})}
+						<div
+							key={Math.random()}
+							className="inline-flex justify-between font-bold striped"
+						>
+							<div className="w-[200px] pl-[8px]">Totals</div>
+							{storeTotals.map((store) => {
+								return (
+									<div key={Math.random()} className="w-[100px] text-center">
+										{store?.toFixed(2)}
+									</div>
+								);
+							})}
+						</div>
 					</div>
 				</div>
 			</div>
