@@ -11,7 +11,7 @@ const groceryListSchema = new Schema(
 				{
 					item: String,
 					quantity: Number,
-					stores: [{ name: String, quantity: String, unit: String }],
+					stores: [{ name: String, price: Number, unit: String }],
 				},
 			],
 		},

@@ -25,10 +25,6 @@ const RecipePage = async ({ params }: any) => {
 		return item.total;
 	});
 
-	console.log("Grocery Lists : ", groceryLists);
-	console.log("Existing : ", groceryLists.foundGroceryLists);
-	console.log("Selected Grocery List : ", selectedGroceryList);
-
 	return (
 		<>
 			<div className="flex justify-center mt-10">

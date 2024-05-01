@@ -38,6 +38,13 @@ const AddGroceryDialog = ({
 				...selectedGroceryList.items.itemData,
 			];
 
+			console.log("ingredientsCheckList : ", ingredientsCheckList);
+			console.log(
+				"selectedGroceryList.items.itemData : ",
+				selectedGroceryList.items.itemData
+			);
+			console.log("updatedList : ", updatedList);
+
 			const itemData = Object.values(
 				updatedList.reduce((value, object) => {
 					if (value[object.item]) {
@@ -188,7 +195,7 @@ const AddGroceryDialog = ({
 	const [existingList, setExistingList] = useState(selectedGroceryList);
 	const [itemData, setItemData] = useState(ingredientsCheckList);
 
-	// console.log("ItemData : ", itemData);
+	console.log("ItemData : ", itemData);
 	// console.log("selectedGroceryList : ", selectedGroceryList?.items.itemData);
 
 	return (

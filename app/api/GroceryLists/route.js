@@ -24,8 +24,6 @@ export async function PUT(req, { params }) {
 		const body = await req.json();
 		const groceryData = body.formData;
 
-		console.log("id : ", id);
-
 		const updateRecipeData = await GroceryList.findByIdAndUpdate(
 			{ userId: id },
 			{
