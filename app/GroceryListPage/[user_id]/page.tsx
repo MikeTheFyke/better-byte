@@ -43,11 +43,14 @@ const GroceryListPage = async ({ params }: any) => {
 	if (selectedGroceryList) {
 		return (
 			<div className="p-[20px]">
-				<div className="border border-1 border-slate-300 drop-shadow-lg drop-shadow-grey-900/10 rounded py-[20px]">
+				<div className="w-full px-[8px] text-center mb-[8px]">
+					<h1 className="font-bold text-black text-4xl">Your Grocery List</h1>
+				</div>
+				<div className="border border-1 border-slate-300 drop-shadow-lg drop-shadow-grey-900/10 rounded py-[8px] px-[8px]">
 					<div className="w-full grid grid-row-5">
 						<div
 							key={Math.random()}
-							className="inline-flex justify-between font-bold striped"
+							className="inline-flex justify-between font-bold striped mb-[8px]"
 						>
 							<div className="w-[200px] pl-[8px]">Ingredients</div>
 							{storeGridHeader.map((store) => {
@@ -86,7 +89,7 @@ const GroceryListPage = async ({ params }: any) => {
 						})}
 						<div
 							key={Math.random()}
-							className="inline-flex justify-between font-bold striped"
+							className="inline-flex justify-between font-bold striped mt-[8px] border border-1 border-slate-300 drop-shadow-lg drop-shadow-grey-900/10 rounded"
 						>
 							<div className="w-[200px] pl-[8px]">Totals</div>
 							{storeTotals.map((store) => {
