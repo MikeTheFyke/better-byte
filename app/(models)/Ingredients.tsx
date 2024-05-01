@@ -10,13 +10,6 @@ export type Ingredient = {
 	stores: Array<IngredientLocation>;
 };
 
-export const availableLocations = [
-	"Walmart",
-	"Loblaws",
-	"noFrills",
-	"Galleria",
-];
-
 export const getIngredientByName = async (name: string) => {
 	try {
 		const res = await fetch(`http://localhost:3000/api/Ingredients/${name}`, {

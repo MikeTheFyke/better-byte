@@ -3,6 +3,7 @@ import {
 	IngredientLocation,
 	getIngredientByName,
 } from "@/app/(models)/Ingredients";
+import { currency } from "@/app/common/common";
 import React from "react";
 
 interface Props {
@@ -15,7 +16,6 @@ const IngredientGrid = async ({ name, index }: Props) => {
 	const selectedIngredient: Ingredient = ingredient
 		? ingredient.foundIngredient
 		: undefined;
-	const currency = "$";
 
 	const displayUnit = selectedIngredient.stores.filter((store) => {
 		if (store.unit !== "") {

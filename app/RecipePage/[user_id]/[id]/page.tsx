@@ -3,8 +3,8 @@ import IngredientGrid from "@/app/(components)/IngredientGrid/IngredientGrid";
 import IngredientRow from "@/app/(components)/IngredientGrid/IngredientRow";
 import { GroceryList, getGroceryListsById } from "@/app/(models)/GroceryList";
 
-import { availableLocations } from "@/app/(models)/Ingredients";
 import { Recipe, getRecipeById } from "@/app/(models)/Recipe";
+import { availableLocations } from "@/app/common/common";
 
 const RecipePage = async ({ params }: any) => {
 	const recipeId = params.id;

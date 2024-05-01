@@ -1,5 +1,6 @@
 import GroceryGridIngredients from "@/app/(components)/GroceryGrid/GroceryGridIngredients";
 import { GroceryList, getGroceryListsById } from "@/app/(models)/GroceryList";
+import { availableLocations } from "@/app/common/common";
 
 const GroceryListPage = async ({ params }: any) => {
 	const userId = params.user_id;
@@ -34,11 +35,6 @@ const GroceryListPage = async ({ params }: any) => {
 		storePriceCalculator("Galleria"),
 	];
 
-	const storeGridHeader = ["Walmart", "Loblaws", "noFrills", "Galleria"];
-
-	console.log("Mapped : ", mappedStores);
-	console.log("Totals : ", storeTotals);
-
 	if (selectedGroceryList) {
 		return (
 			<div className="p-[20px]">
@@ -49,11 +45,11 @@ const GroceryListPage = async ({ params }: any) => {
 					<div className="w-full grid grid-row-6">
 						<div
 							key={Math.random()}
-							className="inline-flex justify-between font-bold groceryGridStriped mb-[8px]"
+							className="inline-flex justify-between font-semibold groceryGridStriped mb-[8px]"
 						>
 							<div className="w-[200px] pl-[8px]">Ingredients</div>
 							<div className="w-[100px] text-center">Quantity</div>
-							{storeGridHeader.map((store) => {
+							{availableLocations.map((store) => {
 								return (
 									<div key={Math.random()} className="w-[100px] text-center">
 										{store}

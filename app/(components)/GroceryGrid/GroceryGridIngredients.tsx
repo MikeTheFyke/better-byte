@@ -1,5 +1,6 @@
 "use client";
 import { GroceryStoreItemData } from "@/app/(models)/GroceryList";
+import { currency } from "@/app/common/common";
 import React from "react";
 
 interface Props {
@@ -7,10 +8,7 @@ interface Props {
 }
 
 const GroceryGridIngredients = ({ ingredientsList }: Props) => {
-	const currency = "$";
-
 	const strikeOutIngredient = (id: string) => {
-		console.log("Click");
 		if (document.getElementById(id).style.backgroundColor === "transparent") {
 			document
 				.getElementById(id)
