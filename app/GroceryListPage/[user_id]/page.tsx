@@ -47,12 +47,13 @@ const GroceryListPage = async ({ params }: any) => {
 					<h1 className="font-bold text-black text-4xl">Your Grocery List</h1>
 				</div>
 				<div className="border border-1 border-slate-300 drop-shadow-lg drop-shadow-grey-900/10 rounded py-[8px] px-[8px]">
-					<div className="w-full grid grid-row-5">
+					<div className="w-full grid grid-row-6">
 						<div
 							key={Math.random()}
-							className="inline-flex justify-between font-bold striped mb-[8px]"
+							className="inline-flex justify-between font-bold groceryGridStriped mb-[8px]"
 						>
 							<div className="w-[200px] pl-[8px]">Ingredients</div>
+							<div className="w-[100px] text-center">Quantity</div>
 							{storeGridHeader.map((store) => {
 								return (
 									<div key={Math.random()} className="w-[100px] text-center">
@@ -69,6 +70,9 @@ const GroceryListPage = async ({ params }: any) => {
 										className="inline-flex justify-between striped"
 									>
 										<div className="w-[200px] pl-[8px]">{ingredient.item}</div>
+										<div key={Math.random()} className="w-[100px] text-center">
+											{ingredient.quantity}
+										</div>
 										{ingredient.stores.map((store) => {
 											return (
 												<>
@@ -92,6 +96,7 @@ const GroceryListPage = async ({ params }: any) => {
 							className="inline-flex justify-between font-bold striped mt-[8px] border border-1 border-slate-300 drop-shadow-lg drop-shadow-grey-900/10 rounded"
 						>
 							<div className="w-[200px] pl-[8px]">Totals</div>
+							<div className="w-[100px] pl-[8px]"></div>
 							{storeTotals.map((store) => {
 								return (
 									<div key={Math.random()} className="w-[100px] text-center">
