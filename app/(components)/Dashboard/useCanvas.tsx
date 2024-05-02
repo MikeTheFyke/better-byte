@@ -10,12 +10,14 @@ const useCanvas = (draw: any) => {
 		let count = context.canvas.height;
 		let animationID: number;
 
-		let img = new Image();
-		img.src = "/images/blueSky.jpeg";
+		let skyImg = new Image();
+		skyImg.src = "/images/blueSky.jpg";
+		let mountainImg = new Image();
+		mountainImg.src = "/images/mountains.png";
 
 		const renderer = () => {
 			count++;
-			draw(context, count, img);
+			draw(context, count, skyImg, mountainImg);
 			animationID = window.requestAnimationFrame(renderer);
 		};
 		renderer();
