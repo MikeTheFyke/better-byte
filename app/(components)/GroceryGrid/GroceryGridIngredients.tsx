@@ -1,13 +1,14 @@
 "use client";
 import { GroceryStoreItemData } from "@/app/(models)/GroceryList";
 import { currency } from "@/app/common/common";
-import React from "react";
+import React, { useState } from "react";
 
 interface Props {
-	ingredientsList: GroceryStoreItemData[];
+	ingredients: GroceryStoreItemData[];
 }
 
-const GroceryGridIngredients = ({ ingredientsList }: Props) => {
+const GroceryGridIngredients = ({ ingredients }: Props) => {
+	const [ingredientsList, setIngredientList] = useState(ingredients);
 	const strikeOutIngredient = (id: string) => {
 		if (document.getElementById(id).style.backgroundColor === "transparent") {
 			document

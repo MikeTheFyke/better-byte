@@ -58,7 +58,7 @@ const GroceryListPage = async ({ params }: any) => {
 							})}
 						</div>
 						<GroceryGridIngredients
-							ingredientsList={selectedGroceryList.items.itemData}
+							ingredients={selectedGroceryList.items.itemData}
 						/>
 						<div
 							key={Math.random()}
