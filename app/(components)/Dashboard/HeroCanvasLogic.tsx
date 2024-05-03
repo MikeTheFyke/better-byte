@@ -9,11 +9,6 @@ export const draw = (
 
 	drawSky(context, count, skyImg);
 	drawMountain(context, count, mountainImg);
-	// context.beginPath();
-	// context.moveTo(0, context.canvas.height - delta);
-	// context.lineTo(context.canvas.width, context.canvas.height - delta);
-	// context.strokeStyle = "green";
-	// context.stroke();
 };
 
 const drawSky = (context: any, count: number, skyImg: HTMLImageElement) => {
@@ -41,21 +36,35 @@ const drawMountain = (
 	count: number,
 	mountainImg: HTMLImageElement
 ) => {
+	let mountainWidth = context.canvas.width * 2;
+	let mountainX = 0 - context.canvas.width / 4;
 	if (count <= 1001) {
 		context.drawImage(
 			mountainImg,
-			0,
+			mountainX,
 			context.canvas.height * 2 - count,
-			context.canvas.width,
+			mountainWidth,
 			context.canvas.height
 		);
 	} else {
-		context.drawImage(
-			mountainImg,
-			0,
-			200,
-			context.canvas.width,
-			context.canvas.height
-		);
+		if (count > 1001 && count <= 1600) {
+			let widthOffset = count - 1001;
+			let xOffset = count - 1001;
+			context.drawImage(
+				mountainImg,
+				mountainX + xOffset / 2,
+				200,
+				mountainWidth - widthOffset * 2,
+				context.canvas.height
+			);
+		} else {
+			context.drawImage(
+				mountainImg,
+				0,
+				200,
+				context.canvas.width,
+				context.canvas.height
+			);
+		}
 	}
 };
