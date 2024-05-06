@@ -14,10 +14,14 @@ const useCanvas = (draw: any) => {
 		skyImg.src = "/images/blueSky.jpg";
 		let mountainImg = new Image();
 		mountainImg.src = "/images/mountains.png";
+		let hill01Img = new Image();
+		hill01Img.src = "/images/Hill01.png";
+		let hill02Img = new Image();
+		hill02Img.src = "/images/Hill02.png";
 
 		const renderer = () => {
 			count++;
-			draw(context, count, skyImg, mountainImg);
+			draw(context, count, skyImg, mountainImg, hill01Img, hill02Img);
 			animationID = window.requestAnimationFrame(renderer);
 		};
 		renderer();
