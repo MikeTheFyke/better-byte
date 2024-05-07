@@ -12,9 +12,9 @@ export const draw = (
 	const delta = (count % context.canvas.height) / 2;
 
 	drawSky(context, count, skyImg, canvasHeight, canvasWidth);
-	drawMountain(context, count, mountainImg);
-	drawHill01(context, count, hill01Img);
-	drawHill02(context, count, hill02Img);
+	drawMountain(context, count, mountainImg, canvasHeight, canvasWidth);
+	drawHill01(context, count, hill01Img, canvasHeight, canvasWidth);
+	drawHill02(context, count, hill02Img, canvasHeight, canvasWidth);
 };
 
 const drawSky = (
@@ -34,17 +34,19 @@ const drawSky = (
 const drawMountain = (
 	context: any,
 	count: number,
-	mountainImg: HTMLImageElement
+	mountainImg: HTMLImageElement,
+	canvasHeight: number,
+	canvasWidth: number
 ) => {
-	let mountainWidth = context.canvas.width * 2;
-	let mountainX = 0 - context.canvas.width / 4;
+	let mountainWidth = canvasWidth * 2;
+	let mountainX = 0 - canvasWidth / 4;
 	if (count <= 1001) {
 		context.drawImage(
 			mountainImg,
 			mountainX,
-			context.canvas.height * 2 - count,
+			canvasHeight * 2 - count,
 			mountainWidth,
-			context.canvas.height
+			canvasHeight
 		);
 	} else {
 		if (count > 1001 && count <= 1600) {
@@ -55,16 +57,10 @@ const drawMountain = (
 				mountainX + xOffset / 2,
 				200,
 				mountainWidth - widthOffset * 2,
-				context.canvas.height
+				canvasHeight
 			);
 		} else {
-			context.drawImage(
-				mountainImg,
-				0,
-				200,
-				context.canvas.width,
-				context.canvas.height
-			);
+			context.drawImage(mountainImg, 0, 200, canvasWidth, canvasHeight);
 		}
 	}
 };
@@ -72,24 +68,20 @@ const drawMountain = (
 const drawHill01 = (
 	context: any,
 	count: number,
-	hill01Img: HTMLImageElement
+	hill01Img: HTMLImageElement,
+	canvasHeight: number,
+	canvasWidth: number
 ) => {
-	let hillWidth = context.canvas.width * 2;
-	let hillY = context.canvas.height * 2;
+	let hillWidth = canvasWidth * 2;
+	let hillY = canvasHeight * 2;
 	if (count >= 400) {
 		if (count < 1200) {
-			context.drawImage(
-				hill01Img,
-				0,
-				hillY - count,
-				hillWidth,
-				context.canvas.height
-			);
+			context.drawImage(hill01Img, 0, hillY - count, hillWidth, canvasHeight);
 		} else {
 			if (count < 1800) {
 				let widthOffset = (count - 1200) * 2;
-				hillWidth = hillWidth = context.canvas.width * 2 - widthOffset;
-				context.drawImage(hill01Img, 0, 1, hillWidth, context.canvas.height);
+				hillWidth = hillWidth = canvasWidth * 2 - widthOffset;
+				context.drawImage(hill01Img, 0, 1, hillWidth, canvasHeight);
 			} else if (count > 1800 && count < 2000) {
 				let heightOffset = count - 1800;
 				let hillY = 1 + (count - 1800);
@@ -97,17 +89,11 @@ const drawHill01 = (
 					hill01Img,
 					0,
 					1 + hillY,
-					context.canvas.width,
-					context.canvas.height - heightOffset
+					canvasWidth,
+					canvasHeight - heightOffset
 				);
 			} else {
-				context.drawImage(
-					hill01Img,
-					0,
-					200,
-					context.canvas.width,
-					context.canvas.height - 200
-				);
+				context.drawImage(hill01Img, 0, 200, canvasWidth, canvasHeight - 200);
 			}
 		}
 	}
@@ -116,32 +102,30 @@ const drawHill01 = (
 const drawHill02 = (
 	context: any,
 	count: number,
-	hill02Img: HTMLImageElement
+	hill02Img: HTMLImageElement,
+	canvasHeight: number,
+	canvasWidth: number
 ) => {
-	let hillWidth = context.canvas.width * 2;
-	let hillX = 0 - context.canvas.width;
+	let hillWidth = canvasWidth * 2;
+	let hillX = 0 - canvasWidth;
 	if (count >= 700) {
 		if (count < 1300) {
 			let offsetY = count - 700;
 			context.drawImage(
 				hill02Img,
 				hillX,
-				context.canvas.height - offsetY,
+				canvasHeight - offsetY,
 				hillWidth,
-				context.canvas.height
+				canvasHeight
 			);
 		} else if (count < 1900) {
 			let offsetWidth = count - 1300;
-			console.log(
-				"hillWidth - offsetWidth * 2 : ",
-				hillWidth - offsetWidth * 2
-			);
 			context.drawImage(
 				hill02Img,
 				hillX + offsetWidth * 2,
-				context.canvas.height - 600,
+				canvasHeight - 600,
 				hillWidth - offsetWidth * 2,
-				context.canvas.height
+				canvasHeight
 			);
 		} else {
 			if (count <= 2000) {
@@ -152,15 +136,15 @@ const drawHill02 = (
 					-2,
 					hillY,
 					1202,
-					context.canvas.height - heightOffset
+					canvasHeight - heightOffset
 				);
 			} else {
 				context.drawImage(
 					hill02Img,
 					-2,
-					context.canvas.height - 600,
+					canvasHeight - 600,
 					1202,
-					context.canvas.height
+					canvasHeight
 				);
 			}
 		}
