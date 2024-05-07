@@ -4,34 +4,30 @@ export const draw = (
 	skyImg: HTMLImageElement,
 	mountainImg: HTMLImageElement,
 	hill01Img: HTMLImageElement,
-	hill02Img: HTMLImageElement
+	hill02Img: HTMLImageElement,
+	canvasHeight: number,
+	canvasWidth: number
 ) => {
 	context.clearRect(0, 0, context.canvas.width, context.canvas.height);
 	const delta = (count % context.canvas.height) / 2;
 
-	drawSky(context, count, skyImg);
+	drawSky(context, count, skyImg, canvasHeight, canvasWidth);
 	drawMountain(context, count, mountainImg);
 	drawHill01(context, count, hill01Img);
 	drawHill02(context, count, hill02Img);
 };
 
-const drawSky = (context: any, count: number, skyImg: HTMLImageElement) => {
+const drawSky = (
+	context: any,
+	count: number,
+	skyImg: HTMLImageElement,
+	canvasHeight: number,
+	canvasWidth: number
+) => {
 	if (count <= 1100) {
-		context.drawImage(
-			skyImg,
-			0,
-			0 - count,
-			context.canvas.width,
-			context.canvas.height * 3
-		);
+		context.drawImage(skyImg, 0, 0 - count, canvasWidth, canvasHeight * 3);
 	} else {
-		context.drawImage(
-			skyImg,
-			0,
-			-1100,
-			context.canvas.width,
-			context.canvas.height * 3
-		);
+		context.drawImage(skyImg, 0, -1100, canvasWidth, canvasHeight * 3);
 	}
 };
 
@@ -136,6 +132,10 @@ const drawHill02 = (
 			);
 		} else if (count < 1900) {
 			let offsetWidth = count - 1300;
+			console.log(
+				"hillWidth - offsetWidth * 2 : ",
+				hillWidth - offsetWidth * 2
+			);
 			context.drawImage(
 				hill02Img,
 				hillX + offsetWidth * 2,
@@ -144,13 +144,25 @@ const drawHill02 = (
 				context.canvas.height
 			);
 		} else {
-			context.drawImage(
-				hill02Img,
-				-2,
-				context.canvas.height - 600,
-				1202,
-				context.canvas.height
-			);
+			if (count <= 2000) {
+				let heightOffset = count - 2000;
+				let hillY = count - 2000;
+				context.drawImage(
+					hill02Img,
+					-2,
+					hillY,
+					1202,
+					context.canvas.height - heightOffset
+				);
+			} else {
+				context.drawImage(
+					hill02Img,
+					-2,
+					context.canvas.height - 600,
+					1202,
+					context.canvas.height
+				);
+			}
 		}
 	}
 };
