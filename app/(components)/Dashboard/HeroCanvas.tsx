@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { draw } from "./HeroCanvasLogic";
 import useCanvas from "./useCanvas";
 
@@ -10,6 +10,25 @@ interface Props {
 
 const HeroCanvas = ({ height, width }: Props) => {
 	const ref = useCanvas(draw);
+	const [windowWidth, setWidth] = useState(
+		typeof window === "undefined" ? 0 : window.innerWidth
+	);
+	const [windowHeight, setHeight] = useState(
+		typeof window === "undefined" ? 0 : window.innerHeight
+	);
+	const handleResize = () => {
+		setWidth(window.innerWidth);
+		setHeight(window.innerWidth / 2);
+	};
+
+	useEffect(() => {
+		handleResize();
+		window.addEventListener("resize", handleResize);
+		return () => window.removeEventListener("resize", handleResize);
+	}, []);
+
+	console.log("windowWidth : ", windowWidth);
+	console.log("windowHeight : ", windowHeight);
 
 	return (
 		<div
