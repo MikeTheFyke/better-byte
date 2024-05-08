@@ -5,6 +5,7 @@ export const draw = (
 	mountainImg: HTMLImageElement,
 	hill01Img: HTMLImageElement,
 	hill02Img: HTMLImageElement,
+	hill03Img: HTMLImageElement,
 	canvasHeight: number,
 	canvasWidth: number
 ) => {
@@ -15,6 +16,7 @@ export const draw = (
 	drawMountain(context, count, mountainImg, canvasHeight, canvasWidth);
 	drawHill01(context, count, hill01Img, canvasHeight, canvasWidth);
 	drawHill02(context, count, hill02Img, canvasHeight, canvasWidth);
+	drawHill03(context, count, hill03Img, canvasHeight, canvasWidth);
 };
 
 const drawSky = (
@@ -147,6 +149,30 @@ const drawHill02 = (
 					canvasHeight
 				);
 			}
+		}
+	}
+};
+
+const drawHill03 = (
+	context: any,
+	count: number,
+	hill03Img: HTMLImageElement,
+	canvasHeight: number,
+	canvasWidth: number
+) => {
+	if (count >= 1300) {
+		if (count < 1850) {
+			let offsetHillY = count - 1300;
+			context.drawImage(
+				hill03Img,
+				-2,
+				canvasHeight - offsetHillY,
+				1202,
+				canvasHeight
+			);
+		} else {
+			let offsetHillY = count - 1850;
+			context.drawImage(hill03Img, -2, 50, 1202, canvasHeight);
 		}
 	}
 };

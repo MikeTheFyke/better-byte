@@ -20,6 +20,8 @@ const useCanvas = (draw: any) => {
 		hill01Img.src = "/images/Hill01.png";
 		let hill02Img = new Image();
 		hill02Img.src = "/images/Hill02.png";
+		let hill03Img = new Image();
+		hill03Img.src = "/images/Hill03.png";
 
 		const renderer = () => {
 			count++;
@@ -30,6 +32,7 @@ const useCanvas = (draw: any) => {
 				mountainImg,
 				hill01Img,
 				hill02Img,
+				hill03Img,
 				canvasHeight,
 				canvasWidth
 			);
