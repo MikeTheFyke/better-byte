@@ -1,16 +1,34 @@
 "use client";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 const useCanvas = (draw: any) => {
 	const ref = useRef();
+
+	const [canvasWidth, setWidth] = useState(
+		typeof window === "undefined"
+			? 0
+			: document.getElementById("HeroCanvas")?.getBoundingClientRect().width
+	);
+	const [canvasHeight, setHeight] = useState(
+		typeof window === "undefined"
+			? 0
+			: document.getElementById("HeroCanvas")?.getBoundingClientRect().height
+	);
+
+	const handleResize = () => {
+		setWidth(
+			document.getElementById("HeroCanvas")?.getBoundingClientRect().width
+		);
+		setHeight(
+			document.getElementById("HeroCanvas")?.getBoundingClientRect().height
+		);
+	};
 
 	useEffect(() => {
 		const canvas = ref.current;
 		const context = canvas.getContext("2d");
 		let count = context.canvas.height;
 		let animationID: number;
-		let canvasHeight = context.canvas.height;
-		let canvasWidth = context.canvas.width;
 
 		let skyImg = new Image();
 		skyImg.src = "/images/blueSky.jpg";
@@ -22,6 +40,9 @@ const useCanvas = (draw: any) => {
 		hill02Img.src = "/images/Hill02.png";
 		let hill03Img = new Image();
 		hill03Img.src = "/images/Hill03.png";
+
+		handleResize();
+		window.addEventListener("resize", handleResize);
 
 		const renderer = () => {
 			count++;
@@ -39,8 +60,13 @@ const useCanvas = (draw: any) => {
 			animationID = window.requestAnimationFrame(renderer);
 		};
 		renderer();
-		return () => window.cancelAnimationFrame(animationID);
-	}, []);
+		return () => {
+			return (
+				window.cancelAnimationFrame(animationID),
+				window.removeEventListener("resize", handleResize)
+			);
+		};
+	}, [handleResize]);
 
 	return ref;
 };
