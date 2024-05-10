@@ -12,6 +12,7 @@ export const draw = (
 	context.clearRect(0, 0, canvasWidth, canvasHeight);
 
 	drawSky(context, count, skyImg, canvasWidth, canvasHeight);
+	drawMountain(context, count, mountainImg, canvasWidth, canvasHeight);
 };
 
 const drawSky = (
@@ -31,39 +32,54 @@ const drawSky = (
 	}
 };
 
-// const drawMountain = (
-// 	context: any,
-// 	count: number,
-// 	mountainImg: HTMLImageElement,
-// 	canvasHeight: number,
-// 	canvasWidth: number
-// ) => {
-// 	let mountainWidth = canvasWidth * 2;
-// 	let mountainX = 0 - canvasWidth / 4;
-// 	if (count <= 1001) {
-// 		context.drawImage(
-// 			mountainImg,
-// 			mountainX,
-// 			canvasHeight * 2 - count,
-// 			mountainWidth,
-// 			canvasHeight
-// 		);
-// 	} else {
-// 		if (count > 1001 && count <= 1600) {
-// 			let widthOffset = count - 1001;
-// 			let xOffset = count - 1001;
-// 			context.drawImage(
-// 				mountainImg,
-// 				mountainX + xOffset / 2,
-// 				200,
-// 				mountainWidth - widthOffset * 2,
-// 				canvasHeight
-// 			);
-// 		} else {
-// 			context.drawImage(mountainImg, 0, 200, canvasWidth, canvasHeight);
-// 		}
-// 	}
-// };
+const drawMountain = (
+	context: any,
+	count: number,
+	mountainImg: HTMLImageElement,
+	canvasWidth: number,
+	canvasHeight: number
+) => {
+	let mountainWidth = canvasWidth * 2;
+	let mountainY = canvasHeight * 2;
+	let mountainX = 0 - canvasWidth / 4;
+	let offsetY = mountainY - canvasHeight / 3;
+	if (count <= offsetY) {
+		context.drawImage(
+			mountainImg,
+			mountainX,
+			mountainY - count,
+			mountainWidth,
+			canvasHeight
+		);
+	} else {
+		let offsetX = count - offsetY;
+		let finalX = mountainX + offsetX / 2;
+		let width = mountainWidth - offsetX * 2;
+		let finalY = canvasHeight / 2.9;
+		if (offsetX <= canvasWidth / 2) {
+			context.drawImage(mountainImg, finalX, finalY, width, canvasHeight);
+		} else {
+			let test = Math.floor(offsetX - canvasWidth / 2) / 2;
+			if (test <= canvasHeight / 3) {
+				context.drawImage(
+					mountainImg,
+					0,
+					finalY - test,
+					canvasWidth,
+					canvasHeight - test / 2
+				);
+			} else {
+				context.drawImage(
+					mountainImg,
+					0,
+					finalY - canvasHeight / 3,
+					canvasWidth,
+					canvasHeight - canvasHeight / 6
+				);
+			}
+		}
+	}
+};
 
 // const drawHill01 = (
 // 	context: any,
