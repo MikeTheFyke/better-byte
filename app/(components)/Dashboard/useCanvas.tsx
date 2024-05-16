@@ -66,7 +66,7 @@ const useCanvas = (draw: any) => {
 				window.removeEventListener("resize", handleResize)
 			);
 		};
-	}, [handleResize]);
+	}, []);
 
 	return ref;
 };

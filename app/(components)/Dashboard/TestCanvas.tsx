@@ -13,6 +13,7 @@ export const draw = (
 
 	drawSky(context, count, skyImg, canvasWidth, canvasHeight);
 	drawMountain(context, count, mountainImg, canvasWidth, canvasHeight);
+	drawHill01(context, count, hill01Img, canvasWidth, canvasHeight);
 };
 
 const drawSky = (
@@ -24,7 +25,6 @@ const drawSky = (
 ) => {
 	let finalY = canvasHeight * 2;
 	let skyHeight = canvasHeight * 3;
-
 	if (count <= finalY) {
 		context.drawImage(skyImg, 0, 0 - count, canvasWidth, skyHeight);
 	} else {
@@ -81,39 +81,66 @@ const drawMountain = (
 	}
 };
 
-// const drawHill01 = (
-// 	context: any,
-// 	count: number,
-// 	hill01Img: HTMLImageElement,
-// 	canvasHeight: number,
-// 	canvasWidth: number
-// ) => {
-// 	let hillWidth = canvasWidth * 2;
-// 	let hillY = canvasHeight * 2;
-// 	if (count >= 400) {
-// 		if (count < 1200) {
-// 			context.drawImage(hill01Img, 0, hillY - count, hillWidth, canvasHeight);
-// 		} else {
-// 			if (count < 1800) {
-// 				let widthOffset = (count - 1200) * 2;
-// 				hillWidth = hillWidth = canvasWidth * 2 - widthOffset;
-// 				context.drawImage(hill01Img, 0, 1, hillWidth, canvasHeight);
-// 			} else if (count > 1800 && count < 2000) {
-// 				let heightOffset = count - 1800;
-// 				let hillY = 1 + (count - 1800);
-// 				context.drawImage(
-// 					hill01Img,
-// 					0,
-// 					1 + hillY,
-// 					canvasWidth,
-// 					canvasHeight - heightOffset
-// 				);
-// 			} else {
-// 				context.drawImage(hill01Img, 0, 200, canvasWidth, canvasHeight - 200);
-// 			}
-// 		}
-// 	}
-// };
+const drawHill01 = (
+	context: any,
+	count: number,
+	hill01Img: HTMLImageElement,
+	canvasWidth: number,
+	canvasHeight: number
+) => {
+	let start = canvasHeight;
+	let hillWidth = canvasWidth * 2;
+	let hillHeight = canvasHeight;
+	let hillY = canvasHeight * 2;
+	let offsetY = hillY - canvasHeight / 3;
+
+	// if (count <= offsetY) {
+	// let offsetY = count - canvasHeight;
+	// console.log("canvasHeight : ", canvasHeight);
+	// console.log("canvasWidth : ", canvasWidth);
+	// console.log("Count : ", count);
+	if (count <= canvasWidth) {
+		context.drawImage(hill01Img, 0, hillY - count, hillWidth, hillHeight);
+	} else {
+		hillY = hillY - canvasWidth;
+		let offsetWidth = count - canvasWidth;
+		if (count < 2600) {
+			// console.log("Phase One");
+			context.drawImage(
+				hill01Img,
+				0,
+				hillY,
+				hillWidth - offsetWidth,
+				hillHeight
+			);
+		} else {
+			context.drawImage(hill01Img, 0, hillY, hillWidth - 2600, hillHeight);
+		}
+	}
+
+	// if (count <= canvasHeight + canvasHeight / 3) {
+	// 	context.drawImage(
+	// 		hill01Img,
+	// 		0,
+	// 		canvasHeight - offsetY,
+	// 		hillWidth,
+	// 		hillHeight
+	// 	);
+	// }
+	// else {
+	// 	context.drawImage(
+	// 		hill01Img,
+	// 		0,
+	// 		canvasHeight - canvasHeight / 3,
+	// 		hillWidth,
+	// 		hillHeight
+	// 	);
+	// }
+	// }
+	// else {
+	// 	context.drawImage(hill01Img, 0, offsetY, hillWidth, hillheight);
+	// }
+};
 
 // const drawHill02 = (
 // 	context: any,
